@@ -4,6 +4,9 @@
 
 package id.alfonlevi.mahasiswa;
 
+import id.alfonlevi.mahasiswa.data.RepositoryProvider;
+import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
+
 /**
  *
  * @author levir
@@ -11,6 +14,17 @@ package id.alfonlevi.mahasiswa;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        var mahasiswaRepository = RepositoryProvider.get().getMahasiswaRepository();
+
+        mahasiswaRepository.add(new Mahasiswa("123230127", "Levi"));
+        mahasiswaRepository.getAll().forEach((v) -> {
+            System.out.println(v.getNama() + " "+ v.getNim());
+        });
+
+        mahasiswaRepository.update(new Mahasiswa("123230127", "Levi Rizki Saputra"));
+        mahasiswaRepository.getAll().forEach((v) -> {
+            System.out.println(v.getNama() + " "+ v.getNim());
+        });
+        mahasiswaRepository.delete("123230127");
     }
 }
