@@ -4,17 +4,25 @@ import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MahasiswaDataSource implements MahasiswaRepository {
+public class MahasiswaDataSource extends BaseDataSource implements MahasiswaRepository {
     private final Connection mConnection;
 
     public MahasiswaDataSource(Connection connection) {
         mConnection = connection;
     }
 
+    private Mahasiswa fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Mahasiswa(
+            resultSet.getString("nim"),
+            resultSet.getString("nama")
+        );
+    }
+    
     @Override
     public List<Mahasiswa> getAll() {
         var result = new ArrayList<Mahasiswa>();
@@ -23,12 +31,7 @@ public class MahasiswaDataSource implements MahasiswaRepository {
             var resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                result.add(
-                        new Mahasiswa(
-                                resultSet.getString("nim"),
-                                resultSet.getString("nama")
-                        )
-                );
+                result.add(fromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,12 +41,31 @@ public class MahasiswaDataSource implements MahasiswaRepository {
     }
 
     @Override
+    public Mahasiswa get(String nim) {
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Mahasiswa WHERE nim = ?")) {
+            statement.setString(1, nim);
+            var resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return fromResultSet(resultSet);
+            }
+            
+            return null;   
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Override
     public boolean update(Mahasiswa mahasiswa) {
         try (var statement = mConnection.prepareStatement("UPDATE Mahasiswa SET nama = ? WHERE nim = ?")) {
             statement.setString(1, mahasiswa.getNama());
             statement.setString(2, mahasiswa.getNim());
-
-            return statement.executeUpdate() > 0;
+               
+            var result = statement.executeUpdate() > 0;
+            invokeListener();
+            
+            return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,8 +76,11 @@ public class MahasiswaDataSource implements MahasiswaRepository {
         try (var statement = mConnection.prepareStatement("INSERT INTO Mahasiswa(nim, nama) VALUES (?, ?)")) {
             statement.setString(1, mahasiswa.getNim());
             statement.setString(2, mahasiswa.getNama());
-
-            return statement.executeUpdate() > 0;
+            
+            var result = statement.executeUpdate() > 0;
+            invokeListener();
+            
+            return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,8 +90,11 @@ public class MahasiswaDataSource implements MahasiswaRepository {
     public boolean delete(String nim) {
         try (var statement = mConnection.prepareStatement("DELETE FROM Mahasiswa WHERE nim = ?")) {
             statement.setString(1, nim);
-
-            return statement.executeUpdate() > 0;
+            
+            var result = statement.executeUpdate() > 0;
+            invokeListener();
+            
+            return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
