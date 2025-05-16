@@ -66,9 +66,8 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
 
     @Override
     public boolean add(MataKuliah mataKuliah) {
-        try (var statement = mConnection.prepareStatement("INSERT INTO MataKuliah(id, nama) VALUES (?, ?)")) {
-            statement.setString(1, mataKuliah.getId());
-            statement.setString(2, mataKuliah.getNama());
+        try (var statement = mConnection.prepareStatement("INSERT INTO MataKuliah(nama) VALUES (?)")) {
+            statement.setString(1, mataKuliah.getNama());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;
