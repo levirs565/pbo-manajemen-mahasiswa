@@ -16,12 +16,7 @@ public class MahasiswaDataSource extends BaseDataSource implements MahasiswaRepo
         mConnection = connection;
     }
 
-    private Mahasiswa fromResultSet(ResultSet resultSet) throws SQLException {
-        return new Mahasiswa(
-            resultSet.getString("nim"),
-            resultSet.getString("nama")
-        );
-    }
+
     
     @Override
     public List<Mahasiswa> getAll() {
@@ -31,7 +26,7 @@ public class MahasiswaDataSource extends BaseDataSource implements MahasiswaRepo
             var resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                result.add(fromResultSet(resultSet));
+                result.add(Utils.mapMahasiswa(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,7 +42,7 @@ public class MahasiswaDataSource extends BaseDataSource implements MahasiswaRepo
             var resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                return fromResultSet(resultSet);
+                return Utils.mapMahasiswa(resultSet);
             }
             
             return null;   

@@ -1,6 +1,7 @@
 package id.alfonlevi.mahasiswa.data.datasource;
 
 import id.alfonlevi.mahasiswa.data.model.Kelas;
+import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
 
 import java.sql.Connection;
@@ -8,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class KelasDataSource extends BaseDataSource implements KelasRepository {
     private final Connection mConnection;
@@ -25,9 +28,10 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     }
 
     @Override
-    public List<Kelas> getAll() {
+    public List<Kelas> getAll(String mataKuliahId) {
         var result = new ArrayList<Kelas>();
-        try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas")) {
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas where mata_kuliah_id = ?")) {
+            statement.setString(1, mataKuliahId);   
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result.add(fromResultSet(resultSet));
@@ -92,5 +96,51 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Mahasiswa> getAnggotaKelas(String id) {
+        var result = new ArrayList<Mahasiswa>();
+
+        try (var statement = mConnection.prepareStatement("select * from MahasiswaKelas " + //
+                        "inner join Kelas on MahasiswaKelas.kelas_id = Kelas.id" + //
+                        "where MahasiswaKelas.kelas_id = ? ")) {
+            statement.setString(1, id);
+            var resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                result.add(Utils.mapMahasiswa(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;    }
+
+    @Override
+    public void updateAnggotaKelas(String id, List<String> nimList) {
+        var param = nimList.stream().map((v) -> "?").collect(Collectors.joining(","));
+        try (var statement = mConnection.prepareStatement("DELETE FROM MahasiswaKelas WHERE kelas_id = ? and mahasiswa_nim not in (" + param + ")")) {
+            statement.setString(1, id);
+            int index = 2;
+            for (String nim : nimList) {
+                statement.setString(index, nim);
+                index++;
+            }
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        try (var statement = mConnection.prepareStatement("INSERT ignore INTO MahasiswaKelas(kelas_id, mahasiswa_nim) VALUES (?, ?)")) {
+            for (String nim : nimList) {
+                statement.setString(1, id);
+                statement.setString(2, nim);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
     }
 }
