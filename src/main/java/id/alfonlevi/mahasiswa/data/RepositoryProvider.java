@@ -1,7 +1,13 @@
 package id.alfonlevi.mahasiswa.data;
 
 import id.alfonlevi.mahasiswa.data.datasource.MahasiswaDataSource;
+import id.alfonlevi.mahasiswa.data.datasource.MataKuliahDataSource;
+import id.alfonlevi.mahasiswa.data.datasource.KelasDataSource;
+import id.alfonlevi.mahasiswa.data.datasource.MahasiswaKelasDataSource;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
+import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
+import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
+import id.alfonlevi.mahasiswa.data.repository.MahasiswaKelasRepository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,22 +24,46 @@ public class RepositoryProvider {
     }
 
     private Connection mConnection;
+
     private MahasiswaDataSource mMahasiswaDataSource;
+    private MataKuliahDataSource mMataKuliahDataSource;
+    private KelasDataSource mKelasDataSource;
+    private MahasiswaKelasDataSource mMahasiswaKelasDataSource;
 
     private RepositoryProvider() {
         try {
             mConnection = DriverManager.getConnection(sDB_URL, sDB_USER, sDB_PASSWORD);
 
-            try(var statement = mConnection.createStatement()) {
+            try (var statement = mConnection.createStatement()) {
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Mahasiswa(" +
                         "nim VARCHAR(10) PRIMARY KEY NOT NULL," +
-                        "nama VARCHAR(100) NOT NULL" +
-                        ")");
+                        "nama VARCHAR(100) NOT NULL)");
+
+                statement.addBatch("CREATE TABLE IF NOT EXISTS MataKuliah(" +
+                        "id VARCHAR(10) PRIMARY KEY NOT NULL," +
+                        "nama VARCHAR(100) NOT NULL)");
+
+                statement.addBatch("CREATE TABLE IF NOT EXISTS Kelas(" +
+                        "id VARCHAR(10) PRIMARY KEY NOT NULL," +
+                        "nama VARCHAR(100) NOT NULL," +
+                        "mata_kuliah_id VARCHAR(10) NOT NULL," +
+                        "FOREIGN KEY (mata_kuliah_id) REFERENCES MataKuliah(id) ON DELETE CASCADE ON UPDATE CASCADE)");
+
+                statement.addBatch("CREATE TABLE IF NOT EXISTS MahasiswaKelas(" +
+                        "mahasiswa_nim VARCHAR(10) NOT NULL," +
+                        "kelas_id VARCHAR(10) NOT NULL," +
+                        "PRIMARY KEY (mahasiswa_nim, kelas_id)," +
+                        "FOREIGN KEY (mahasiswa_nim) REFERENCES Mahasiswa(nim) ON DELETE CASCADE ON UPDATE CASCADE," +
+                        "FOREIGN KEY (kelas_id) REFERENCES Kelas(id) ON DELETE CASCADE ON UPDATE CASCADE)");
 
                 statement.executeBatch();
             }
 
             mMahasiswaDataSource = new MahasiswaDataSource(mConnection);
+            mMataKuliahDataSource = new MataKuliahDataSource(mConnection);
+            mKelasDataSource = new KelasDataSource(mConnection);
+            mMahasiswaKelasDataSource = new MahasiswaKelasDataSource(mConnection);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -41,5 +71,17 @@ public class RepositoryProvider {
 
     public MahasiswaRepository getMahasiswaRepository() {
         return mMahasiswaDataSource;
+    }
+
+    public MataKuliahRepository getMataKuliahRepository() {
+        return mMataKuliahDataSource;
+    }
+
+    public KelasRepository getKelasRepository() {
+        return mKelasDataSource;
+    }
+
+    public MahasiswaKelasRepository getMahasiswaKelasRepository() {
+        return mMahasiswaKelasDataSource;
     }
 }
