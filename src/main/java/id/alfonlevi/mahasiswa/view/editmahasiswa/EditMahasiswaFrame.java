@@ -17,11 +17,11 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
     /**
      * Creates new form EditMahasiswaFrame
      */
-    public EditMahasiswaFrame() {
+    public EditMahasiswaFrame(String id) {
         initComponents();
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        mController = new EditMahasiswaController(this);
+        mController = new EditMahasiswaController(this, id);
     }
 
     public EditMahasiswaController getController() {

@@ -18,12 +18,10 @@ public class EditMahasiswaController {
     private final MahasiswaRepository mRepository;
     private boolean mIsEdit;
 
-    public EditMahasiswaController(EditMahasiswaView view) {
+    public EditMahasiswaController(EditMahasiswaView view, String nim) {
         this.mView = view;
         this.mRepository = RepositoryProvider.get().getMahasiswaRepository();
-    }
-   
-    public void setup(String nim) {
+
         mIsEdit = nim != null;
         if (!mIsEdit) {
             mView.showData(true, null);
@@ -32,7 +30,7 @@ public class EditMahasiswaController {
             mView.showData(false, data);
         }
     }
-    
+
     public boolean submit(Mahasiswa mahasiswa) {
         if (!mIsEdit && this.mRepository.get(mahasiswa.getNim()) != null) {
             mView.showError("NIM sudah digunakan");

@@ -123,18 +123,14 @@ public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView 
     }// </editor-fold>//GEN-END:initComponents
 
     private void mAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAddButtonActionPerformed
-        var frame = new EditMahasiswaFrame();
-        frame.getController().setup(null);
-        frame.setVisible(true);
+        new EditMahasiswaFrame(null).setVisible(true);
     }//GEN-LAST:event_mAddButtonActionPerformed
 
     private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
         var nim = getSelectedNim();
         if (nim == null) return;
         
-        var frame = new EditMahasiswaFrame();
-        frame.getController().setup(nim);
-        frame.setVisible(true);
+        new EditMahasiswaFrame(nim).setVisible(true);
     }//GEN-LAST:event_mEditButtonActionPerformed
 
     private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed

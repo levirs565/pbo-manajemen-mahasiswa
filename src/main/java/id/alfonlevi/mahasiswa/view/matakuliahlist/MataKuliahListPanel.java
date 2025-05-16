@@ -45,9 +45,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
         var addButton = new JButton();
         addButton.setText("Tambah");
         addButton.addActionListener((v) -> {
-            var frame = new EditMataKuliahDialog();
-            frame.getController().setup(null);
-            frame.setVisible(true);
+            new EditMataKuliahDialog(null).setVisible(true);
         });
         boxLayout.add(addButton);
         

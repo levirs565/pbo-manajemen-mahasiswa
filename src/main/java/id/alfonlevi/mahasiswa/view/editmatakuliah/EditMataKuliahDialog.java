@@ -17,12 +17,12 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
     /**
      * Creates new form EditMataKuliahFrame
      */
-    public EditMataKuliahDialog() {
+    public EditMataKuliahDialog(String id) {
         initComponents();
         
         setModal(true);
 
-        mController = new EditMataKuliahController(this);
+        mController = new EditMataKuliahController(this, id);
     }
 
     public EditMataKuliahController getController() {
