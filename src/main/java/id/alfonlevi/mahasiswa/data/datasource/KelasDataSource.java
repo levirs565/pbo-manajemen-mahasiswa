@@ -74,10 +74,9 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     @Override
     public boolean add(Kelas kelas) {
         try (var statement = mConnection.prepareStatement(
-                "INSERT INTO Kelas(id, nama, mata_kuliah_id) VALUES (?, ?, ?)")) {
-            statement.setString(1, kelas.getId());
-            statement.setString(2, kelas.getNama());
-            statement.setString(3, kelas.getMataKuliahId());
+                "INSERT INTO Kelas(nama, mata_kuliah_id) VALUES (?, ?)")) {
+            statement.setString(1, kelas.getNama());
+            statement.setString(2, kelas.getMataKuliahId());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;

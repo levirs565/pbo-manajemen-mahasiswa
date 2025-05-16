@@ -8,6 +8,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahController;
 import id.alfonlevi.mahasiswa.data.model.Kelas;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
+import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 
 import javax.swing.*;
@@ -51,6 +52,9 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
 
         var addButton = new JButton("Add");
         addButton.setAlignmentX(0);
+        addButton.addActionListener((v) -> {
+            new EditKelasDialog(null, mController.getId()).setVisible(true);
+        });
         box.add(addButton);
 
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, box);

@@ -25,7 +25,7 @@ public class MataKuliahController {
             refreshTitle();
         });
 
-        mMataKuliahRepository.registerListener(() -> {
+        mKelasRepository.registerListener(() -> {
             refreshKelas();
         });
     }
