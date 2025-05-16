@@ -5,8 +5,7 @@
 package id.alfonlevi.mahasiswa.view.main;
 
 import id.alfonlevi.mahasiswa.view.mahasiswa.MahasiswaPanel;
-import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahPanel;
-import javax.swing.table.TableModel;
+import id.alfonlevi.mahasiswa.view.matakuliahlist.MataKuliahListPanel;
 
 /**
  *
@@ -21,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         
         mTabPane.add("Siswa", new MahasiswaPanel());
-        mTabPane.add("Mata Kuliah", new MataKuliahPanel());
+        mTabPane.add("Mata Kuliah", new MataKuliahListPanel());
     }
     
     /**

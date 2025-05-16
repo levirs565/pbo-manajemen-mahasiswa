@@ -2,13 +2,13 @@ package id.alfonlevi.mahasiswa.controller;
 
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
-import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahView;
+import id.alfonlevi.mahasiswa.view.matakuliahlist.MataKuliahListView;
 
-public class MataKuliahController {
+public class MataKuliahListController {
     private final MataKuliahRepository mRepository;
-    private final MataKuliahView mView;
+    private final MataKuliahListView mView;
 
-    public MataKuliahController(MataKuliahView view) {
+    public MataKuliahListController(MataKuliahListView view) {
         mView = view;
 
         mRepository = RepositoryProvider.get().getMataKuliahRepository();

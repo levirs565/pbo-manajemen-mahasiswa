@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package id.alfonlevi.mahasiswa.view.matakuliah;
+package id.alfonlevi.mahasiswa.view.matakuliahlist;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import id.alfonlevi.mahasiswa.controller.MataKuliahController;
+import id.alfonlevi.mahasiswa.controller.MataKuliahListController;
 import id.alfonlevi.mahasiswa.data.model.MataKuliah;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import javax.swing.BorderFactory;
@@ -19,14 +19,14 @@ import java.util.List;
  *
  * @author levir
  */
-public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahView {
+public class MataKuliahListPanel extends javax.swing.JPanel implements MataKuliahListView {
     private JLabel mEmptyLabel =  new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
-    private MataKuliahController mController;
+    private MataKuliahListController mController;
 
     /**
      * Creates new form MataKuliahPanel
      */
-    public MataKuliahPanel() {
+    public MataKuliahListPanel() {
         initComponents();
         
         var boxLayout = Box.createVerticalBox();
@@ -50,7 +50,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_SHOW_CONTENT_SEPARATOR,true);
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 125);
 
-        mController = new MataKuliahController(this);
+        mController = new MataKuliahListController(this);
     }
 
     @Override
