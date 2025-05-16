@@ -3,11 +3,9 @@ package id.alfonlevi.mahasiswa.data;
 import id.alfonlevi.mahasiswa.data.datasource.MahasiswaDataSource;
 import id.alfonlevi.mahasiswa.data.datasource.MataKuliahDataSource;
 import id.alfonlevi.mahasiswa.data.datasource.KelasDataSource;
-import id.alfonlevi.mahasiswa.data.datasource.MahasiswaKelasDataSource;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
-import id.alfonlevi.mahasiswa.data.repository.MahasiswaKelasRepository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,7 +26,6 @@ public class RepositoryProvider {
     private MahasiswaDataSource mMahasiswaDataSource;
     private MataKuliahDataSource mMataKuliahDataSource;
     private KelasDataSource mKelasDataSource;
-    private MahasiswaKelasDataSource mMahasiswaKelasDataSource;
 
     private RepositoryProvider() {
         try {
@@ -62,7 +59,6 @@ public class RepositoryProvider {
             mMahasiswaDataSource = new MahasiswaDataSource(mConnection);
             mMataKuliahDataSource = new MataKuliahDataSource(mConnection);
             mKelasDataSource = new KelasDataSource(mConnection);
-            mMahasiswaKelasDataSource = new MahasiswaKelasDataSource(mConnection);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -81,7 +77,5 @@ public class RepositoryProvider {
         return mKelasDataSource;
     }
 
-    public MahasiswaKelasRepository getMahasiswaKelasRepository() {
-        return mMahasiswaKelasDataSource;
-    }
+ 
 }
