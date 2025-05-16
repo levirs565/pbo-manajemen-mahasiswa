@@ -102,7 +102,7 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         var result = new ArrayList<Mahasiswa>();
 
         try (var statement = mConnection.prepareStatement("select * from MahasiswaKelas " + //
-                        "inner join Kelas on MahasiswaKelas.kelas_id = Kelas.id" + //
+                        "inner join Kelas on MahasiswaKelas.kelas_id = Kelas.id " + //
                         "where MahasiswaKelas.kelas_id = ? ")) {
             statement.setString(1, id);
             var resultSet = statement.executeQuery();

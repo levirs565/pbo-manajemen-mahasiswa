@@ -10,6 +10,7 @@ import id.alfonlevi.mahasiswa.data.model.Kelas;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
+import id.alfonlevi.mahasiswa.view.kelas.KelasPanel;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
             if (cid.equals("")) {
                 return mEmptyLabel;
             }
-            return new JLabel(cid);
+            return new KelasPanel(cid);
         });
 
         mController = new MataKuliahController(this, id);
