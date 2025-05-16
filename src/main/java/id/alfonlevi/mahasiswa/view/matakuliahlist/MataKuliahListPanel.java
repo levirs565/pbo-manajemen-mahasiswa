@@ -7,12 +7,16 @@ package id.alfonlevi.mahasiswa.view.matakuliahlist;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahListController;
 import id.alfonlevi.mahasiswa.data.model.MataKuliah;
+import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
+import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahPanel;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +26,7 @@ import java.util.List;
 public class MataKuliahListPanel extends javax.swing.JPanel implements MataKuliahListView {
     private JLabel mEmptyLabel =  new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
     private MataKuliahListController mController;
+    private TabbedPaneHelper mTabbedPaneHelper;
 
     /**
      * Creates new form MataKuliahPanel
@@ -47,22 +52,27 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
         boxLayout.add(addButton);
         
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, boxLayout);
-        mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_SHOW_CONTENT_SEPARATOR,true);
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 125);
 
+        mTabbedPaneHelper = new TabbedPaneHelper(mTabPane, (id) -> {
+            if (id.equals("")) return mEmptyLabel;
+
+            return new MataKuliahPanel(id);
+        });
         mController = new MataKuliahListController(this);
     }
 
     @Override
     public void setData(List<MataKuliah> data) {
-        mTabPane.removeAll();
+        var items = new ArrayList<TabbedPaneHelper.Item>();
         if (data.isEmpty()) {
-            mTabPane.add("Masih Kosong", mEmptyLabel);
+            items.add(new TabbedPaneHelper.Item("", "Masih Kosong"));
         } else {
             for (var mataKuliah : data) {
-                mTabPane.add(mataKuliah.getNama(), new JLabel(mataKuliah.getNama()));
+                items.add(new TabbedPaneHelper.Item(mataKuliah.getId(), mataKuliah.getNama()));
             }
         }
+        mTabbedPaneHelper.setItems(items);
     }
 
     /**
