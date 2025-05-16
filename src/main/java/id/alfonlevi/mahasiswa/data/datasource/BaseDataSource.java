@@ -5,10 +5,10 @@
 package id.alfonlevi.mahasiswa.data.datasource;
 
 import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class BaseDataSource implements BaseRepository {
-    private ArrayList<BaseRepository.Listener> mListeners = new ArrayList<>();
+    private CopyOnWriteArrayList<Listener> mListeners = new CopyOnWriteArrayList<>();
     
     @Override
     public void registerListener(Listener listener) {
