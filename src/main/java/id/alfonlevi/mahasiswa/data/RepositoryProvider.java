@@ -61,6 +61,20 @@ public class RepositoryProvider {
                         "is_genap boolean NOT NULL," +
                         "PRIMARY KEY (id)");
 
+
+                statement.addBatch("CREATE TABLE IF NOT EXISTS Akun(" +
+                        "username VARCHAR(16) NOT NULL," +
+                        "password VARCHAR(36) NOT NULL," +
+                        "role ENUM('DOSEN','ADMIN') NOT NULL," +
+                        "PRIMARY KEY (username)");;
+
+                statement.addBatch("CREATE TABLE IF NOT EXISTS Dosen(" +
+                        "nip VARCHAR(16) NOT NULL," +
+                        "username VARCHAR(36) NOT NULL," +
+                        "nama VARCHAR(36) NOT NULL," +
+                        "PRIMARY KEY (username)," +
+                        "FOREIGN KEY (username) REFERENCES Akun(username) ON DELETE CASCADE ON UPDATE CASCADE");;
+
                 statement.executeBatch();
             }
 

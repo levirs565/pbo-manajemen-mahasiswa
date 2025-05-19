@@ -1,0 +1,46 @@
+package id.alfonlevi.mahasiswa.data.datasource;
+
+import id.alfonlevi.mahasiswa.data.model.Akun;
+import id.alfonlevi.mahasiswa.data.model.Akun.Role;
+import id.alfonlevi.mahasiswa.data.repository.AkunRepository;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AkunDataSource extends BaseDataSource implements AkunRepository {
+    private final Connection mConnection;
+
+    public AkunDataSource(Connection connection) {
+        mConnection = connection;
+    }
+
+    private Akun fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Akun(
+            resultSet.getString("username"),
+            resultSet.getString("password"),
+            Role.valueOf(resultSet.getString("role")) // Enum.fromString
+        );
+    }
+
+    @Override
+    public Akun get(String username) {
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Akun WHERE username = ?")) {
+            statement.setString(1, username);
+            var rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return fromResultSet(rs);
+            }
+
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    
+
+}
