@@ -4,7 +4,7 @@ import id.alfonlevi.mahasiswa.data.model.Periode;
 
 import java.util.List;
 
-public interface PeriodeRepository {
+public interface PeriodeRepository extends BaseRepository {
     List<Periode> getAll();
     Periode get(String id);
     boolean add(Periode periode);

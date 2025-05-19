@@ -7,53 +7,95 @@ package id.alfonlevi.mahasiswa.view.matakuliahlist;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahListController;
 import id.alfonlevi.mahasiswa.data.model.MataKuliah;
+import id.alfonlevi.mahasiswa.data.model.Periode;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahPanel;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author levir
  */
 public class MataKuliahListPanel extends javax.swing.JPanel implements MataKuliahListView {
-    private JLabel mEmptyLabel =  new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
+    private JLabel mEmptyLabel = new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
+    private JLabel mPeriodeEmptyLabel = new JLabel("Belum Memilih Periode. Jika periode kosong, tambah periode dauhulu", SwingConstants.CENTER);
     private MataKuliahListController mController;
     private TabbedPaneHelper mTabbedPaneHelper;
+    private JButton mAddButton;
+    private JComboBox<Periode> mPeriodeComboBox;
 
     /**
      * Creates new form MataKuliahPanel
      */
     public MataKuliahListPanel() {
         initComponents();
-        
+
         var boxLayout = Box.createVerticalBox();
         boxLayout.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        
+
         var titleLabel = new JLabel();
         titleLabel.setText("Mata Kuliah");
         titleLabel.putClientProperty(FlatClientProperties.STYLE_CLASS, "h2");
+        titleLabel.setAlignmentX(0);
         boxLayout.add(titleLabel);
-        
-        var addButton = new JButton();
-        addButton.setText("Tambah");
-        addButton.addActionListener((v) -> {
+
+        var periodeBox = Box.createHorizontalBox();
+        mPeriodeComboBox = new JComboBox<>();
+        mPeriodeComboBox.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list,
+                    Object value,
+                    int index,
+                    boolean isSelected,
+                    boolean cellHasFocus
+            ) {
+                if (value instanceof Periode) {
+                    Periode periode = (Periode) value;
+                    value = String.format(
+                            "%d/%d - %s",
+                            periode.getTahun(),
+                            periode.getTahun() + 1,
+                            periode.isGenap() ? "Genap" : "Ganjil"
+                    );
+                }
+                return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            }
+        });
+        mPeriodeComboBox.addActionListener((v) -> {
+            var selected = mPeriodeComboBox.getSelectedItem();
+            var id = (selected instanceof  Periode) ? ((Periode) selected).getId() : null;
+            mController.setSelectedPeriode(id);
+        });
+        periodeBox.add(mPeriodeComboBox);
+
+        var periodeEditButton = new JButton("...");
+        periodeEditButton.addActionListener((v) -> {
+
+        });
+        periodeBox.add(periodeEditButton);
+
+        periodeBox.setAlignmentX(0);
+        boxLayout.add(periodeBox);
+
+        mAddButton = new JButton();
+        mAddButton.setText("Tambah");
+        mAddButton.addActionListener((v) -> {
             new EditMataKuliahDialog(null).setVisible(true);
         });
-        boxLayout.add(addButton);
-        
+        mAddButton.setAlignmentX(0);
+        boxLayout.add(mAddButton);
+
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, boxLayout);
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 125);
 
         mTabbedPaneHelper = new TabbedPaneHelper(mTabPane, (id) -> {
-            if (id.equals("")) return mEmptyLabel;
+            if (id.equals("kosong")) return mEmptyLabel;
+            if (id.equals("periode-ajar-kosong")) return mPeriodeEmptyLabel;
 
             return new MataKuliahPanel(id);
         });
@@ -63,14 +105,25 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
     @Override
     public void setData(List<MataKuliah> data) {
         var items = new ArrayList<TabbedPaneHelper.Item>();
-        if (data.isEmpty()) {
-            items.add(new TabbedPaneHelper.Item("", "Masih Kosong"));
+        mAddButton.setVisible(data != null);
+        if (data == null) {
+            items.add(new TabbedPaneHelper.Item("periode-ajar-kosong", "Belum Memilih Periode Ajar"));
+        } else if (data.isEmpty()) {
+            items.add(new TabbedPaneHelper.Item("kosong", "Masih Kosong"));
         } else {
             for (var mataKuliah : data) {
                 items.add(new TabbedPaneHelper.Item(mataKuliah.getId(), mataKuliah.getNama()));
             }
         }
         mTabbedPaneHelper.setItems(items);
+    }
+
+    @Override
+    public void setPeriodeList(List<Periode> periodeList) {
+        mPeriodeComboBox.removeAllItems();
+        for (var periode : periodeList) {
+            mPeriodeComboBox.addItem(periode);
+        }
     }
 
     /**
