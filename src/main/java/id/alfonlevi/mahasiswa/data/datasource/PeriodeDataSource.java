@@ -1,7 +1,7 @@
 package id.alfonlevi.mahasiswa.data.datasource;
 
-import id.alfonlevi.mahasiswa.data.model.MataKuliah;
-import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
+import id.alfonlevi.mahasiswa.data.model.Periode;
+import id.alfonlevi.mahasiswa.data.repository.PeriodeRepository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,25 +9,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRepository {
+public class PeriodeDataSource extends BaseDataSource implements PeriodeRepository {
     private final Connection mConnection;
 
-    public MataKuliahDataSource(Connection connection) {
+    public PeriodeDataSource(Connection connection) {
         mConnection = connection;
     }
 
-    private MataKuliah fromResultSet(ResultSet resultSet) throws SQLException {
-        return new MataKuliah(
+    private Periode fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Periode(
             resultSet.getString("id"),
-            resultSet.getString("nama")
+            resultSet.getInt("tahun"),
+            resultSet.getBoolean("is_genap")
         );
     }
 
     @Override
-    public List<MataKuliah> getAll(String periodeId) {
-        var result = new ArrayList<MataKuliah>();
-        try (var statement = mConnection.prepareStatement("SELECT * FROM MataKuliah WHERE periode_id = ?")) {  
-            statement .setString(1, periodeId);
+    public List<Periode> getAll() {
+        var result = new ArrayList<Periode>();
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Periode")) {
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result.add(fromResultSet(resultSet));
@@ -39,8 +39,8 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
     }
 
     @Override
-    public MataKuliah get(String id) {
-        try (var statement = mConnection.prepareStatement("SELECT * FROM MataKuliah WHERE id = ?")) {
+    public Periode get(String id) {
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Periode WHERE id = ?")) {
             statement.setString(1, id);
             var resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -53,10 +53,11 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
     }
 
     @Override
-    public boolean update(MataKuliah mataKuliah) {
-        try (var statement = mConnection.prepareStatement("UPDATE MataKuliah SET nama = ? WHERE id = ?")) {
-            statement.setString(1, mataKuliah.getNama());
-            statement.setString(2, mataKuliah.getId());
+    public boolean add(Periode periode) {
+        try (var statement = mConnection.prepareStatement("INSERT INTO Periode (id, tahun, is_genap) VALUES (?, ?, ?)")) {
+            statement.setString(1, periode.getId());
+            statement.setInt(2, periode.getTahun());
+            statement.setBoolean(3, periode.isGenap());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;
@@ -66,9 +67,11 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
     }
 
     @Override
-    public boolean add(MataKuliah mataKuliah) {
-        try (var statement = mConnection.prepareStatement("INSERT INTO MataKuliah(nama) VALUES (?)")) {
-            statement.setString(1, mataKuliah.getNama());
+    public boolean update(Periode periode) {
+        try (var statement = mConnection.prepareStatement("UPDATE Periode SET tahun = ?, is_genap = ? WHERE id = ?")) {
+            statement.setInt(1, periode.getTahun());
+            statement.setBoolean(2, periode.isGenap());
+            statement.setString(3, periode.getId());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;
@@ -79,7 +82,7 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
 
     @Override
     public boolean delete(String id) {
-        try (var statement = mConnection.prepareStatement("DELETE FROM MataKuliah WHERE id = ?")) {
+        try (var statement = mConnection.prepareStatement("DELETE FROM Periode WHERE id = ?")) {
             statement.setString(1, id);
             boolean result = statement.executeUpdate() > 0;
             invokeListener();

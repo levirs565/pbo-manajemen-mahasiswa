@@ -38,7 +38,9 @@ public class RepositoryProvider {
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS MataKuliah(" +
                         "id VARCHAR(36) PRIMARY KEY NOT NULL DEFAULT(UUID())," +
-                        "nama VARCHAR(100) NOT NULL)");
+                        "nama VARCHAR(100) NOT NULL)," +
+                        "periode_id VARCHAR(36) NOT NULL," +
+                        "FOREIGN KEY (periode_id) REFERENCES Periode(id) ON DELETE CASCADE ON UPDATE CASCADE");
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Kelas(" +
                         "id VARCHAR(36) PRIMARY KEY NOT NULL DEFAULT(UUID())," +
@@ -52,6 +54,12 @@ public class RepositoryProvider {
                         "PRIMARY KEY (mahasiswa_nim, kelas_id)," +
                         "FOREIGN KEY (mahasiswa_nim) REFERENCES Mahasiswa(nim) ON DELETE CASCADE ON UPDATE CASCADE," +
                         "FOREIGN KEY (kelas_id) REFERENCES Kelas(id) ON DELETE CASCADE ON UPDATE CASCADE)");
+
+                statement.addBatch("CREATE TABLE IF NOT EXISTS Periode(" +
+                        "id VARCHAR(36) NOT NULL," +
+                        " tahun integer NOT NULL," +
+                        "is_genap boolean NOT NULL," +
+                        "PRIMARY KEY (id)");
 
                 statement.executeBatch();
             }
