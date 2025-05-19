@@ -6,6 +6,7 @@ package id.alfonlevi.mahasiswa.view.kelas;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.KelasController;
+import id.alfonlevi.mahasiswa.view.editanggotakelas.EditAnggotaKelasDialog;
 import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 
 import javax.swing.table.TableModel;
@@ -108,6 +109,11 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
 
         mEditAnggota.setText("Ubah Anggota");
+        mEditAnggota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mEditAnggotaActionPerformed(evt);
+            }
+        });
         jPanel2.add(mEditAnggota);
 
         add(jPanel2);
@@ -116,6 +122,10 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView {
     private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
         new EditKelasDialog(mController.getId(), null).setVisible(true);
     }//GEN-LAST:event_mEditButtonActionPerformed
+
+    private void mEditAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditAnggotaActionPerformed
+       new EditAnggotaKelasDialog(mController.getId()).setVisible(true);
+    }//GEN-LAST:event_mEditAnggotaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

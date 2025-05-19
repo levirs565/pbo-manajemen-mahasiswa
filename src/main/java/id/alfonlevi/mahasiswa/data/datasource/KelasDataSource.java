@@ -102,7 +102,7 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         var result = new ArrayList<Mahasiswa>();
 
         try (var statement = mConnection.prepareStatement("select * from MahasiswaKelas " + //
-                        "inner join Kelas on MahasiswaKelas.kelas_id = Kelas.id " + //
+                        "inner join Mahasiswa on MahasiswaKelas.mahasiswa_nim = Mahasiswa.nim " + //
                         "where MahasiswaKelas.kelas_id = ? ")) {
             statement.setString(1, id);
             var resultSet = statement.executeQuery();
@@ -118,8 +118,9 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
 
     @Override
     public void updateAnggotaKelas(String id, List<String> nimList) {
-        var param = nimList.stream().map((v) -> "?").collect(Collectors.joining(","));
-        try (var statement = mConnection.prepareStatement("DELETE FROM MahasiswaKelas WHERE kelas_id = ? and mahasiswa_nim not in (" + param + ")")) {
+        var paramIds = nimList.stream().map((v) -> "?").collect(Collectors.joining(","));
+        var param = nimList.isEmpty() ? "" : String.format("AND mahasiswa_nim NOT IN (%s)", paramIds);
+        try (var statement = mConnection.prepareStatement("DELETE FROM MahasiswaKelas WHERE kelas_id = ? " + param)) {
             statement.setString(1, id);
             int index = 2;
             for (String nim : nimList) {
@@ -140,6 +141,7 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
+
+        invokeListener();
     }
 }
