@@ -24,9 +24,10 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
     }
 
     @Override
-    public List<MataKuliah> getAll() {
+    public List<MataKuliah> getAll(String periodeId) {
         var result = new ArrayList<MataKuliah>();
-        try (var statement = mConnection.prepareStatement("SELECT * FROM MataKuliah")) {
+        try (var statement = mConnection.prepareStatement("SELECT * FROM MataKuliah WHERE periode_id = ?")) {  
+            statement .setString(1, periodeId);
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result.add(fromResultSet(resultSet));
