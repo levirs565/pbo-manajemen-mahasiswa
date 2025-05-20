@@ -48,11 +48,6 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
         var periodeBox = Box.createHorizontalBox();
         mPeriodeComboBox = new JComboBox<>();
         mPeriodeComboBox.setRenderer(new PeriodeListCellRenderer());
-        mPeriodeComboBox.addActionListener((v) -> {
-            var selected = mPeriodeComboBox.getSelectedItem();
-            var id = (selected instanceof  Periode) ? ((Periode) selected).getId() : null;
-            mController.setSelectedPeriode(id);
-        });
         periodeBox.add(mPeriodeComboBox);
 
         var periodeEditButton = new JButton("...");
@@ -73,7 +68,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
         boxLayout.add(mAddButton);
 
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, boxLayout);
-        mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 125);
+        mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 175);
 
         mTabbedPaneHelper = new TabbedPaneHelper(mTabPane, (id) -> {
             if (id.equals("kosong")) return mEmptyLabel;
@@ -82,6 +77,13 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
             return new MataKuliahPanel(id);
         });
         mController = new MataKuliahListController(this);
+
+        mPeriodeComboBox.addActionListener((v) -> {
+            var selected = mPeriodeComboBox.getSelectedItem();
+            var id = (selected instanceof  Periode) ? ((Periode) selected).getId() : null;
+            mController.setSelectedPeriode(id);
+        });
+        mPeriodeComboBox.setSelectedIndex(-1);
     }
 
     @Override

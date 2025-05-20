@@ -59,11 +59,13 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
     @Override
     public void setTahunModel(ComboBoxModel<Integer> model) {
         mTahunComboBox.setModel(model);
+        mTahunComboBox.setSelectedIndex(-1);
     }
 
     @Override
     public void setSemesterModel(ComboBoxModel<String> model) {
         mSemesterComboBox.setModel(model);
+        mSemesterComboBox.setSelectedIndex(-1);
     }
 
     /**
