@@ -34,6 +34,16 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         mList.setModel(listModel);
     }
 
+    private String getSelectedId() {
+        var selected = mList.getSelectedValue();
+        if (selected == null) {
+            JOptionPane.showMessageDialog(this, "Tidak ada yang dipilih", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        return selected.getId();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +58,8 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0));
         jPanel1 = new javax.swing.JPanel();
         mAddButton = new javax.swing.JButton();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
+        mEditButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
@@ -59,7 +71,7 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         getContentPane().add(filler1);
 
         jPanel1.setAlignmentY(0.0F);
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         mAddButton.setText("Tambah");
         mAddButton.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +80,15 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
             }
         });
         jPanel1.add(mAddButton);
+        jPanel1.add(filler2);
+
+        mEditButton.setText("Ubah");
+        mEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mEditButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mEditButton);
 
         getContentPane().add(jPanel1);
 
@@ -79,11 +100,19 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         new EditPeriodeDialog(null).setVisible(true);
     }//GEN-LAST:event_mAddButtonActionPerformed
 
+    private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
+        var id = getSelectedId();
+        if (id == null) return;
+        new EditPeriodeDialog(id).setVisible(true);
+    }//GEN-LAST:event_mEditButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mAddButton;
+    private javax.swing.JButton mEditButton;
     private javax.swing.JList<Periode> mList;
     // End of variables declaration//GEN-END:variables
 }
