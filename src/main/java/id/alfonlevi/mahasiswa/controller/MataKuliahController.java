@@ -47,6 +47,11 @@ public class MataKuliahController {
         return mId;
     }
 
+    public boolean delete() {
+        dispose();
+        return mMataKuliahRepository.delete(mId);
+    }
+
     public void dispose() {
         mMataKuliahRepository.unregisterListener(mMataKuliahListener);
         mKelasRepository.unregisterListener(mKelasListener);

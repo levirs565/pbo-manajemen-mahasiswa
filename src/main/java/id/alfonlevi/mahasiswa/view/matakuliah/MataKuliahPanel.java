@@ -77,7 +77,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
             new EditMataKuliahDialog(mController.getId(), null).setVisible(true);
         });
         popupMenu.add("Hapus").addActionListener(e -> {
-
+            mController.delete();
         });
 
         moreButton.addActionListener(e -> {
