@@ -40,6 +40,25 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
     }
 
     @Override
+    public List<MataKuliah> getAllByDosen(String periodeId, String usernameDosen) {
+        var result = new ArrayList<MataKuliah>();
+        try (var statement = mConnection.prepareStatement("SELECT DISTINCT MataKuliah.* " +
+                        "FROM Kelas " + 
+                        "JOIN MataKuliah ON Kelas.mata_kuliah_id = MataKuliah.id " + 
+                        "WHERE Kelas.username_dosen = ? AND MataKuliah.periode_id = ?")) {  
+            statement.setString(1, usernameDosen);
+            statement.setString(2, periodeId);
+            var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result.add(fromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    @Override
     public MataKuliah get(String id) {
         try (var statement = mConnection.prepareStatement("SELECT * FROM MataKuliah WHERE id = ?")) {
             statement.setString(1, id);
