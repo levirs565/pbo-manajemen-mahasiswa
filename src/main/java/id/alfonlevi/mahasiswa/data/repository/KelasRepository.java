@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface KelasRepository extends BaseRepository {
     List<Kelas> getAll(String mataKuliahId);
+    List<Kelas> getAll(String mataKuliahId, String usernameDosen);
     boolean update(Kelas kelas);
     Kelas get(String id);
     boolean add(Kelas kelas);

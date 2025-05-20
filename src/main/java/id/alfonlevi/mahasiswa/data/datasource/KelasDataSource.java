@@ -23,7 +23,8 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         return new Kelas(
             resultSet.getString("id"),
             resultSet.getString("nama"),
-            resultSet.getString("mata_kuliah_id")
+            resultSet.getString("mata_kuliah_id"),
+            resultSet.getString("username_dosen")
         );
     }
 
@@ -32,6 +33,22 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         var result = new ArrayList<Kelas>();
         try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas where mata_kuliah_id = ?")) {
             statement.setString(1, mataKuliahId);   
+            var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result.add(fromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Kelas> getAll(String mataKuliahId, String usernameDosen) {
+        var result = new ArrayList<Kelas>();
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas where mata_kuliah_id = ? and username_dosen = ?")) {
+            statement.setString(1, mataKuliahId);   
+            statement.setString(2, usernameDosen);   
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result.add(fromResultSet(resultSet));
@@ -59,10 +76,9 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     @Override
     public boolean update(Kelas kelas) {
         try (var statement = mConnection.prepareStatement(
-                "UPDATE Kelas SET nama = ?, mata_kuliah_id = ? WHERE id = ?")) {
+                "UPDATE Kelas SET nama = ? WHERE id = ?")) {
             statement.setString(1, kelas.getNama());
-            statement.setString(2, kelas.getMataKuliahId());
-            statement.setString(3, kelas.getId());
+            statement.setString(2, kelas.getId());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;
@@ -74,9 +90,10 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     @Override
     public boolean add(Kelas kelas) {
         try (var statement = mConnection.prepareStatement(
-                "INSERT INTO Kelas(nama, mata_kuliah_id) VALUES (?, ?)")) {
+                "INSERT INTO Kelas(nama, mata_kuliah_id, username_dosen) VALUES (?, ?, ?)")) {
             statement.setString(1, kelas.getNama());
             statement.setString(2, kelas.getMataKuliahId());
+            statement.setString(3, kelas.getUsernameDosen());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;
