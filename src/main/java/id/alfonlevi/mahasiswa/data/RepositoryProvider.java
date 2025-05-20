@@ -3,6 +3,7 @@ package id.alfonlevi.mahasiswa.data;
 import id.alfonlevi.mahasiswa.data.datasource.MahasiswaDataSource;
 import id.alfonlevi.mahasiswa.data.datasource.MataKuliahDataSource;
 import id.alfonlevi.mahasiswa.data.datasource.KelasDataSource;
+import id.alfonlevi.mahasiswa.data.datasource.PeriodeDataSource;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
@@ -26,6 +27,7 @@ public class RepositoryProvider {
     private MahasiswaDataSource mMahasiswaDataSource;
     private MataKuliahDataSource mMataKuliahDataSource;
     private KelasDataSource mKelasDataSource;
+    private PeriodeDataSource mPeriodeDataSource;
 
     private RepositoryProvider() {
         try {
@@ -38,9 +40,9 @@ public class RepositoryProvider {
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS MataKuliah(" +
                         "id VARCHAR(36) PRIMARY KEY NOT NULL DEFAULT(UUID())," +
-                        "nama VARCHAR(100) NOT NULL)," +
+                        "nama VARCHAR(100) NOT NULL," +
                         "periode_id VARCHAR(36) NOT NULL," +
-                        "FOREIGN KEY (periode_id) REFERENCES Periode(id) ON DELETE CASCADE ON UPDATE CASCADE");
+                        "FOREIGN KEY (periode_id) REFERENCES Periode(id) ON DELETE CASCADE ON UPDATE CASCADE)");
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Kelas(" +
                         "id VARCHAR(36) PRIMARY KEY NOT NULL DEFAULT(UUID())," +
@@ -57,9 +59,9 @@ public class RepositoryProvider {
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Periode(" +
                         "id VARCHAR(36) NOT NULL," +
-                        " tahun integer NOT NULL," +
-                        "is_genap boolean NOT NULL," +
-                        "PRIMARY KEY (id)");
+                        "tahun INTEGER NOT NULL," +
+                        "is_genap BOOLEAN NOT NULL," +
+                        "PRIMARY KEY (id))");
 
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Akun(" +
@@ -81,6 +83,7 @@ public class RepositoryProvider {
             mMahasiswaDataSource = new MahasiswaDataSource(mConnection);
             mMataKuliahDataSource = new MataKuliahDataSource(mConnection);
             mKelasDataSource = new KelasDataSource(mConnection);
+            mPeriodeDataSource = new PeriodeDataSource(mConnection);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -99,5 +102,7 @@ public class RepositoryProvider {
         return mKelasDataSource;
     }
 
- 
+    public PeriodeDataSource getPeriodeRepository() {
+        return mPeriodeDataSource;
+    }
 }
