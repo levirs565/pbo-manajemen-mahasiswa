@@ -9,6 +9,7 @@ import id.alfonlevi.mahasiswa.controller.MataKuliahController;
 import id.alfonlevi.mahasiswa.data.model.Kelas;
 import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
+import id.alfonlevi.mahasiswa.view.base.TextUtils;
 import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import id.alfonlevi.mahasiswa.view.kelas.KelasPanel;
@@ -86,7 +87,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
 
     @Override
     public void setTitle(String title) {
-        mNameLabel.setText(title);
+        mNameLabel.setText(TextUtils.intoHtml(title));
     }
 
     @Override
