@@ -5,6 +5,7 @@
 package id.alfonlevi.mahasiswa.view.mahasiswa;
 
 import id.alfonlevi.mahasiswa.controller.MahasiswaController;
+import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.editmahasiswa.EditMahasiswaFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -13,7 +14,7 @@ import javax.swing.table.TableModel;
  *
  * @author levir
  */
-public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView {
+public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView, DisposableView {
     private MahasiswaController mController;
     
     /**
@@ -39,7 +40,12 @@ public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView 
         
         return (String) mTable.getModel().getValueAt(selected, 0);
     }
-    
+
+    @Override
+    public void dispose() {
+        mController.dispose();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
