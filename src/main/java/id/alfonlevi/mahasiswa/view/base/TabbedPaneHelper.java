@@ -26,6 +26,7 @@ public class TabbedPaneHelper {
 
         for (var item : data) {
             unused.remove(item.id);
+            mCurrentIds.add(item.id);
 
             var component = mComponentCache.get(item.id);
             if (component == null) {
@@ -38,7 +39,8 @@ public class TabbedPaneHelper {
 
         for (var id : unused) {
             var component = mComponentCache.remove(id);
-            // TODO: Dispose component
+            if (component instanceof DisposableView)
+                ((DisposableView) component).dispose();
         }
     }
 

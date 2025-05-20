@@ -1,6 +1,7 @@
 package id.alfonlevi.mahasiswa.controller;
 
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
+import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.data.repository.PeriodeRepository;
 import id.alfonlevi.mahasiswa.view.matakuliahlist.MataKuliahListView;
@@ -11,6 +12,13 @@ public class MataKuliahListController {
     private final MataKuliahListView mView;
     private String mPeriodeId = null;
 
+    private BaseRepository.Listener mPeriodeListener = () -> {
+        refreshPeriode();
+    };
+    private BaseRepository.Listener mMataKuliahListener = () -> {
+        refresh();
+    };
+
     public MataKuliahListController(MataKuliahListView view) {
         mView = view;
 
@@ -20,14 +28,8 @@ public class MataKuliahListController {
         refreshPeriode();
         refresh();
 
-
-        mPeriodeRepository.registerListener(() -> {
-            refreshPeriode();
-        });
-
-        mMataKuliahRepository.registerListener(() -> {
-            refresh();
-        });
+        mPeriodeRepository.registerListener(mPeriodeListener);
+        mMataKuliahRepository.registerListener(mMataKuliahListener);
     }
 
     private void refreshPeriode() {
@@ -47,5 +49,14 @@ public class MataKuliahListController {
     public void setSelectedPeriode(String periodeId) {
         mPeriodeId = periodeId;
         refresh();
+    }
+
+    public String getSelectedPeriodeId() {
+        return mPeriodeId;
+    }
+
+    public void dispose() {
+        mPeriodeRepository.unregisterListener(mPeriodeListener);
+        mMataKuliahRepository.unregisterListener(mMataKuliahListener);
     }
 }

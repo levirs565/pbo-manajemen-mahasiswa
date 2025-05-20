@@ -7,7 +7,9 @@ package id.alfonlevi.mahasiswa.view.matakuliah;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahController;
 import id.alfonlevi.mahasiswa.data.model.Kelas;
+import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
+import id.alfonlevi.mahasiswa.view.base.TextUtils;
 import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import id.alfonlevi.mahasiswa.view.kelas.KelasPanel;
@@ -20,7 +22,7 @@ import java.util.List;
  *
  * @author levir
  */
-public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahView {
+public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahView, DisposableView {
     private JLabel mNameLabel = new JLabel("Nama");
     private JLabel mEmptyLabel =  new JLabel("Belum ada mata kelas", SwingConstants.CENTER);
     private MataKuliahController mController;
@@ -72,7 +74,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
 
         var popupMenu = new JPopupMenu();
         popupMenu.add("Ubah").addActionListener(e -> {
-            new EditMataKuliahDialog(mController.getId()).setVisible(true);
+            new EditMataKuliahDialog(mController.getId(), null).setVisible(true);
         });
         popupMenu.add("Hapus").addActionListener(e -> {
 
@@ -85,7 +87,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
 
     @Override
     public void setTitle(String title) {
-        mNameLabel.setText(title);
+        mNameLabel.setText(TextUtils.intoHtml(title));
     }
 
     @Override
@@ -99,6 +101,11 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
             }
         }
         mTabbedPaneHelper.setItems(items);
+    }
+
+    @Override
+    public void dispose() {
+        mController.dispose();
     }
 
     /**

@@ -5,6 +5,7 @@
 package id.alfonlevi.mahasiswa.controller;
 
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
+import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 import id.alfonlevi.mahasiswa.view.mahasiswa.MahasiswaView;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,9 @@ public class MahasiswaController {
         new String[]{"NIM", "Nama"},
         0
     );
+    private final BaseRepository.Listener mListener = () -> {
+        refresh();
+    };
     
     public MahasiswaController(MahasiswaView view) {
         this.mView = view;
@@ -29,9 +33,7 @@ public class MahasiswaController {
         mView.setTableModel(mModel);
         refresh();
         
-        mRepository.registerListener(() -> {
-            refresh();
-        });
+        mRepository.registerListener(mListener);
     }
     
     private void refresh() {
@@ -45,5 +47,9 @@ public class MahasiswaController {
     
     public void delete(String nim) {
         mRepository.delete(nim);
+    }
+
+    public void dispose() {
+        mRepository.unregisterListener(mListener);
     }
 }

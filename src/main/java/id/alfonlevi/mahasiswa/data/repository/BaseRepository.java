@@ -10,6 +10,7 @@ package id.alfonlevi.mahasiswa.data.repository;
  */
 public interface BaseRepository {
     void registerListener(Listener listener);
+    void unregisterListener(Listener listener);
     
     public interface Listener {
         void onRepositoryChanged();
