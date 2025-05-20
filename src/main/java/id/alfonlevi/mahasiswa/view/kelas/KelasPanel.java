@@ -86,6 +86,11 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         jPanel1.add(mEditButton);
 
         mDeleteButton.setText("Hapus");
+        mDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mDeleteButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(mDeleteButton);
 
         add(jPanel1);
@@ -132,6 +137,10 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
     private void mEditAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditAnggotaActionPerformed
        new EditAnggotaKelasDialog(mController.getId()).setVisible(true);
     }//GEN-LAST:event_mEditAnggotaActionPerformed
+
+    private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed
+        mController.delete();
+    }//GEN-LAST:event_mDeleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

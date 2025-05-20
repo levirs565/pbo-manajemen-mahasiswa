@@ -1,7 +1,6 @@
 package id.alfonlevi.mahasiswa.controller;
 
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
-import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
 import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
@@ -18,7 +17,11 @@ public class KelasController {
             new String[]{"NIM", "Nama"},
             0
     );
-    private final BaseRepository.Listener mListener = () -> {
+    private final BaseRepository.Listener mKelasListener = () -> {
+        refreshTitle();
+        refreshMahasiswa();
+    };
+    private final BaseRepository.Listener mMahasiswaListener = () -> {
         refreshMahasiswa();
     };
 
@@ -32,12 +35,8 @@ public class KelasController {
         mView.setTableModel(mTableModel);
         refreshMahasiswa();
 
-        mKelasRepository.registerListener(() -> {
-            refreshTitle();
-            refreshMahasiswa();
-        });
-
-        mMahasiswaRepository.registerListener(mListener);
+        mKelasRepository.registerListener(mKelasListener);
+        mMahasiswaRepository.registerListener(mMahasiswaListener);
     }
 
     private void refreshTitle() {
@@ -58,7 +57,13 @@ public class KelasController {
         return mId;
     }
 
+    public boolean delete() {
+        dispose();
+        return mKelasRepository.delete(mId);
+    }
+
     public void dispose() {
-        mMahasiswaRepository.unregisterListener(mListener);
+        mKelasRepository.unregisterListener(mKelasListener);
+        mMahasiswaRepository.unregisterListener(mMahasiswaListener);
     }
 }
