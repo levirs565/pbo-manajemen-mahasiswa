@@ -42,5 +42,14 @@ public class AkunDataSource extends BaseDataSource implements AkunRepository {
     }
 
     
-
+    public boolean add(Akun akun) {
+        try (var statement = mConnection.prepareStatement("INSERT INTO Akun(username, password, role) VALUES (?, ?, ?)")) {
+            statement.setString(1, akun.getUsername());
+            statement.setString(2, akun.getPassword());
+            statement.setString(3, akun.getRole().name());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -11,3 +11,5 @@ public interface DosenRepository extends BaseRepository {
     boolean update(Dosen dosen);
     boolean delete(String username);
 }
+
+

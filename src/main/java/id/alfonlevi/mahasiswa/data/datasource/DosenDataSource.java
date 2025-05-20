@@ -11,9 +11,11 @@ import java.util.List;
 
 public class DosenDataSource extends BaseDataSource implements DosenRepository {
     private final Connection mConnection;
+    private final AkunDataSource mAkunDataSource;
 
-    public DosenDataSource(Connection connection) {
+    public DosenDataSource(Connection connection, AkunDataSource akunDataSource) {
         this.mConnection = connection;
+        this.mAkunDataSource = akunDataSource;
     }
 
     private Dosen fromResultSet(java.sql.ResultSet resultSet) throws SQLException {
@@ -63,6 +65,9 @@ public class DosenDataSource extends BaseDataSource implements DosenRepository {
 
     @Override
     public boolean add(Dosen dosen) {
+        if (!mAkunDataSource.add(dosen)) {
+            return false;
+        }
         try (var statement = mConnection.prepareStatement(
                 "INSERT INTO Dosen(nip, username, nama) VALUES (?, ?, ?)")) {
 

@@ -48,7 +48,9 @@ public class RepositoryProvider {
                         "id VARCHAR(36) PRIMARY KEY NOT NULL DEFAULT(UUID())," +
                         "nama VARCHAR(100) NOT NULL," +
                         "mata_kuliah_id VARCHAR(36) NOT NULL," +
-                        "FOREIGN KEY (mata_kuliah_id) REFERENCES MataKuliah(id) ON DELETE CASCADE ON UPDATE CASCADE)");
+                        "username_dosen VARCHAR(16) NOT NULL," +
+                        "FOREIGN KEY (mata_kuliah_id) REFERENCES MataKuliah(id) ON DELETE CASCADE ON UPDATE CASCADE)," +
+                        "FOREIGN KEY (username_dosen) REFERENCES Dosen(username) ON DELETE CASCADE ON UPDATE CASCADE)");
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS MahasiswaKelas(" +
                         "mahasiswa_nim VARCHAR(10) NOT NULL," +
