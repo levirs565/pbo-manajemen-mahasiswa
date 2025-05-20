@@ -1,9 +1,6 @@
 package id.alfonlevi.mahasiswa.data;
 
-import id.alfonlevi.mahasiswa.data.datasource.MahasiswaDataSource;
-import id.alfonlevi.mahasiswa.data.datasource.MataKuliahDataSource;
-import id.alfonlevi.mahasiswa.data.datasource.KelasDataSource;
-import id.alfonlevi.mahasiswa.data.datasource.PeriodeDataSource;
+import id.alfonlevi.mahasiswa.data.datasource.*;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
@@ -28,6 +25,8 @@ public class RepositoryProvider {
     private MataKuliahDataSource mMataKuliahDataSource;
     private KelasDataSource mKelasDataSource;
     private PeriodeDataSource mPeriodeDataSource;
+    private AkunDataSource mAkunDataSource;
+    private DosenDataSource mDosenDataSource;
 
     private RepositoryProvider() {
         try {
@@ -68,14 +67,14 @@ public class RepositoryProvider {
                         "username VARCHAR(16) NOT NULL," +
                         "password VARCHAR(36) NOT NULL," +
                         "role ENUM('DOSEN','ADMIN') NOT NULL," +
-                        "PRIMARY KEY (username)");;
+                        "PRIMARY KEY (username))");;
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Dosen(" +
                         "nip VARCHAR(16) NOT NULL," +
                         "username VARCHAR(36) NOT NULL," +
                         "nama VARCHAR(36) NOT NULL," +
                         "PRIMARY KEY (username)," +
-                        "FOREIGN KEY (username) REFERENCES Akun(username) ON DELETE CASCADE ON UPDATE CASCADE");;
+                        "FOREIGN KEY (username) REFERENCES Akun(username) ON DELETE CASCADE ON UPDATE CASCADE)");;
 
                 statement.executeBatch();
             }
@@ -84,7 +83,8 @@ public class RepositoryProvider {
             mMataKuliahDataSource = new MataKuliahDataSource(mConnection);
             mKelasDataSource = new KelasDataSource(mConnection);
             mPeriodeDataSource = new PeriodeDataSource(mConnection);
-
+            mAkunDataSource = new AkunDataSource(mConnection);
+            mDosenDataSource = new DosenDataSource(mConnection, mAkunDataSource);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -104,5 +104,13 @@ public class RepositoryProvider {
 
     public PeriodeDataSource getPeriodeRepository() {
         return mPeriodeDataSource;
+    }
+
+    public AkunDataSource getAkunRepository() {
+        return mAkunDataSource;
+    }
+
+    public DosenDataSource getDosenRepository() {
+        return mDosenDataSource;
     }
 }
