@@ -2,6 +2,7 @@ package id.alfonlevi.mahasiswa.controller;
 
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
 import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
+import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 import id.alfonlevi.mahasiswa.view.kelas.KelasView;
@@ -17,6 +18,9 @@ public class KelasController {
             new String[]{"NIM", "Nama"},
             0
     );
+    private final BaseRepository.Listener mListener = () -> {
+        refreshMahasiswa();
+    };
 
     public KelasController(KelasView view, String id) {
         mView = view;
@@ -33,9 +37,7 @@ public class KelasController {
             refreshMahasiswa();
         });
 
-        mMahasiswaRepository.registerListener(() -> {
-            refreshMahasiswa();
-        });
+        mMahasiswaRepository.registerListener(mListener);
     }
 
     private void refreshTitle() {
@@ -54,5 +56,9 @@ public class KelasController {
 
     public String getId() {
         return mId;
+    }
+
+    public void dispose() {
+        mMahasiswaRepository.unregisterListener(mListener);
     }
 }

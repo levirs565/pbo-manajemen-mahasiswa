@@ -6,6 +6,7 @@ package id.alfonlevi.mahasiswa.view.kelas;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.KelasController;
+import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.editanggotakelas.EditAnggotaKelasDialog;
 import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 
@@ -15,7 +16,7 @@ import javax.swing.table.TableModel;
  *
  * @author levir
  */
-public class KelasPanel extends javax.swing.JPanel implements KelasView {
+public class KelasPanel extends javax.swing.JPanel implements KelasView, DisposableView {
     private KelasController mController;
     
     /**
@@ -38,6 +39,11 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView {
     @Override
     public void setTableModel(TableModel model) {
         mTable.setModel(model);
+    }
+
+    @Override
+    public void dispose() {
+        mController.dispose();
     }
 
     /**
