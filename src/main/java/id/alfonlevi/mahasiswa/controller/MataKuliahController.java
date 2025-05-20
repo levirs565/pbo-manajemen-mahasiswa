@@ -1,6 +1,7 @@
 package id.alfonlevi.mahasiswa.controller;
 
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
+import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahView;
@@ -11,6 +12,13 @@ public class MataKuliahController {
     private MataKuliahRepository mMataKuliahRepository;
     private KelasRepository mKelasRepository;
 
+    private final BaseRepository.Listener mMataKuliahListener = () -> {
+        refreshTitle();
+    };
+    private final BaseRepository.Listener mKelasListener = () -> {
+        refreshKelas();
+    };
+    
     public MataKuliahController(MataKuliahView view, String id) {
         mId = id;
         mView = view;
@@ -21,13 +29,8 @@ public class MataKuliahController {
         refreshTitle();
         refreshKelas();
 
-        mMataKuliahRepository.registerListener(() -> {
-            refreshTitle();
-        });
-
-        mKelasRepository.registerListener(() -> {
-            refreshKelas();
-        });
+        mMataKuliahRepository.registerListener(mMataKuliahListener);
+        mKelasRepository.registerListener(mKelasListener);
     }
 
     private void refreshTitle() {
@@ -42,5 +45,10 @@ public class MataKuliahController {
 
     public String getId() {
         return mId;
+    }
+
+    public void dispose() {
+        mMataKuliahRepository.unregisterListener(mMataKuliahListener);
+        mKelasRepository.unregisterListener(mKelasListener);
     }
 }
