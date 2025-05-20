@@ -26,6 +26,7 @@ public class TabbedPaneHelper {
 
         for (var item : data) {
             unused.remove(item.id);
+            mCurrentIds.add(item.id);
 
             var component = mComponentCache.get(item.id);
             if (component == null) {
