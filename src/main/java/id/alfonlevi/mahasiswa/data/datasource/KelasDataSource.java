@@ -44,6 +44,22 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     }
 
     @Override
+    public List<Kelas> getAll(String mataKuliahId, String usernameDosen) {
+        var result = new ArrayList<Kelas>();
+        try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas where mata_kuliah_id = ? and username_dosen = ?")) {
+            statement.setString(1, mataKuliahId);   
+            statement.setString(2, usernameDosen);   
+            var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result.add(fromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    @Override
     public Kelas get(String id) {
         try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas WHERE id = ?")) {
             statement.setString(1, id);
