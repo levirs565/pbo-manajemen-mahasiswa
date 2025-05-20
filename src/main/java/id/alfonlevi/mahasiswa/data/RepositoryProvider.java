@@ -58,10 +58,9 @@ public class RepositoryProvider {
                         "FOREIGN KEY (kelas_id) REFERENCES Kelas(id) ON DELETE CASCADE ON UPDATE CASCADE)");
 
                 statement.addBatch("CREATE TABLE IF NOT EXISTS Periode(" +
-                        "id VARCHAR(36) NOT NULL," +
+                        "id VARCHAR(36) PRIMARY KEY NOT NULL DEFAULT(UUID())," +
                         "tahun INTEGER NOT NULL," +
-                        "is_genap BOOLEAN NOT NULL," +
-                        "PRIMARY KEY (id))");
+                        "is_genap BOOLEAN NOT NULL)");
 
                 statement.executeBatch();
             }

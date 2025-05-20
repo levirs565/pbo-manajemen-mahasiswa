@@ -54,10 +54,9 @@ public class PeriodeDataSource extends BaseDataSource implements PeriodeReposito
 
     @Override
     public boolean add(Periode periode) {
-        try (var statement = mConnection.prepareStatement("INSERT INTO Periode (id, tahun, is_genap) VALUES (?, ?, ?)")) {
-            statement.setString(1, periode.getId());
-            statement.setInt(2, periode.getTahun());
-            statement.setBoolean(3, periode.isGenap());
+        try (var statement = mConnection.prepareStatement("INSERT INTO Periode (tahun, is_genap) VALUES (?, ?)")) {
+            statement.setInt(1, periode.getTahun());
+            statement.setBoolean(2, periode.isGenap());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;

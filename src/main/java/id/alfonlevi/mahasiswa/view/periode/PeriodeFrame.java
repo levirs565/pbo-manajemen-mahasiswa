@@ -7,6 +7,7 @@ package id.alfonlevi.mahasiswa.view.periode;
 import id.alfonlevi.mahasiswa.controller.PeriodeController;
 import id.alfonlevi.mahasiswa.data.model.Periode;
 import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
+import id.alfonlevi.mahasiswa.view.editperiode.EditPeriodeDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +49,7 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         jPanel1 = new javax.swing.JPanel();
         mAddButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
         jScrollPane1.setAlignmentY(0.0F);
@@ -61,6 +62,11 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         mAddButton.setText("Tambah");
+        mAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mAddButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(mAddButton);
 
         getContentPane().add(jPanel1);
@@ -68,6 +74,10 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAddButtonActionPerformed
+        new EditPeriodeDialog(null).setVisible(true);
+    }//GEN-LAST:event_mAddButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
