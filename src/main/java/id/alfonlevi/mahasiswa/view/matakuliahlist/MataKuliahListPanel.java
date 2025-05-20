@@ -8,9 +8,11 @@ import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahListController;
 import id.alfonlevi.mahasiswa.data.model.MataKuliah;
 import id.alfonlevi.mahasiswa.data.model.Periode;
+import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahPanel;
+import id.alfonlevi.mahasiswa.view.periode.PeriodeFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,27 +47,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
 
         var periodeBox = Box.createHorizontalBox();
         mPeriodeComboBox = new JComboBox<>();
-        mPeriodeComboBox.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(
-                    JList<?> list,
-                    Object value,
-                    int index,
-                    boolean isSelected,
-                    boolean cellHasFocus
-            ) {
-                if (value instanceof Periode) {
-                    Periode periode = (Periode) value;
-                    value = String.format(
-                            "%d/%d - %s",
-                            periode.getTahun(),
-                            periode.getTahun() + 1,
-                            periode.isGenap() ? "Genap" : "Ganjil"
-                    );
-                }
-                return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            }
-        });
+        mPeriodeComboBox.setRenderer(new PeriodeListCellRenderer());
         mPeriodeComboBox.addActionListener((v) -> {
             var selected = mPeriodeComboBox.getSelectedItem();
             var id = (selected instanceof  Periode) ? ((Periode) selected).getId() : null;
@@ -75,7 +57,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
 
         var periodeEditButton = new JButton("...");
         periodeEditButton.addActionListener((v) -> {
-
+            new PeriodeFrame().setVisible(true);
         });
         periodeBox.add(periodeEditButton);
 
