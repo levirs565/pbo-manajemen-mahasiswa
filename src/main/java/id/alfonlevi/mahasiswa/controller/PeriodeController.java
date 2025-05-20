@@ -34,6 +34,6 @@ public class PeriodeController {
     }
 
     public void dispose() {
-
+        mRepository.unregisterListener(mRepositoryListener);
     }
 }

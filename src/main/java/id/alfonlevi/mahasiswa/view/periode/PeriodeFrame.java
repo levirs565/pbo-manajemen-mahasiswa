@@ -44,6 +44,12 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         return selected.getId();
     }
 
+    @Override
+    public void dispose() {
+        mController.dispose();
+        super.dispose();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
