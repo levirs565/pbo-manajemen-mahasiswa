@@ -30,7 +30,8 @@ public class EditKelasController {
         var data = new Kelas(
                 mId,
                 nama,
-                mMataKuliahId
+                mMataKuliahId,
+                null
         );
         if (mId == null) {
             return mRepository.add(data);
