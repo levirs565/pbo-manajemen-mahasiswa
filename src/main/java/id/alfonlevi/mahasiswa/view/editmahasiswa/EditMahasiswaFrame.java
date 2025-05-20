@@ -62,7 +62,7 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         mNamaField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mActionButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        mErroLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -128,7 +128,7 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(mErroLabel, gridBagConstraints);
 
         setSize(new java.awt.Dimension(414, 155));
         setLocationRelativeTo(null);
@@ -155,8 +155,8 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton mActionButton;
+    private javax.swing.JLabel mErroLabel;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;
     private javax.swing.JTextField mNimField;

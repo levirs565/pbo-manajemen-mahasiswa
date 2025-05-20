@@ -22,7 +22,6 @@ public class DosenDataSource extends BaseDataSource implements DosenRepository {
         return new Dosen(
             resultSet.getString("username"),
             resultSet.getString("password"),
-            Akun.Role.valueOf(resultSet.getString("role")),
             resultSet.getString("nip"),
             resultSet.getString("nama")
         );
