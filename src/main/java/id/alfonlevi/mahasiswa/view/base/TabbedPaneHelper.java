@@ -38,7 +38,8 @@ public class TabbedPaneHelper {
 
         for (var id : unused) {
             var component = mComponentCache.remove(id);
-            // TODO: Dispose component
+            if (component instanceof DisposableView)
+                ((DisposableView) component).dispose();
         }
     }
 

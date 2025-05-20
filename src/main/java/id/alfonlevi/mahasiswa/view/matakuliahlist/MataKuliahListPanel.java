@@ -8,6 +8,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahListController;
 import id.alfonlevi.mahasiswa.data.model.MataKuliah;
 import id.alfonlevi.mahasiswa.data.model.Periode;
+import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * @author levir
  */
-public class MataKuliahListPanel extends javax.swing.JPanel implements MataKuliahListView {
+public class MataKuliahListPanel extends javax.swing.JPanel implements MataKuliahListView, DisposableView {
     private JLabel mEmptyLabel = new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
     private JLabel mPeriodeEmptyLabel = new JLabel("Belum Memilih Periode. Jika periode kosong, tambah periode dauhulu", SwingConstants.CENTER);
     private MataKuliahListController mController;
@@ -108,6 +109,11 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
         for (var periode : periodeList) {
             mPeriodeComboBox.addItem(periode);
         }
+    }
+
+    @Override
+    public void dispose() {
+        mController.dispose();
     }
 
     /**
