@@ -66,6 +66,8 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         mAddButton = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         mEditButton = new javax.swing.JButton();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
+        mDeleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
@@ -95,6 +97,15 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
             }
         });
         jPanel1.add(mEditButton);
+        jPanel1.add(filler3);
+
+        mDeleteButton.setText("Hapus");
+        mDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mDeleteButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mDeleteButton);
 
         getContentPane().add(jPanel1);
 
@@ -112,12 +123,20 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
         new EditPeriodeDialog(id).setVisible(true);
     }//GEN-LAST:event_mEditButtonActionPerformed
 
+    private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed
+        var id = getSelectedId();
+        if (id == null) return;
+        mController.delete(id);
+    }//GEN-LAST:event_mDeleteButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mAddButton;
+    private javax.swing.JButton mDeleteButton;
     private javax.swing.JButton mEditButton;
     private javax.swing.JList<Periode> mList;
     // End of variables declaration//GEN-END:variables

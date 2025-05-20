@@ -33,6 +33,10 @@ public class PeriodeController {
         mListModel.addAll(data);
     }
 
+    public boolean delete(String id) {
+        return mRepository.delete(id);
+    }
+
     public void dispose() {
         mRepository.unregisterListener(mRepositoryListener);
     }
