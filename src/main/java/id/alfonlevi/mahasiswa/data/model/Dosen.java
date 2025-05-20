@@ -10,13 +10,6 @@ public class Dosen extends Akun {
         mNama = nama;
     }
 
-/*************  ✨ Windsurf Command ⭐  *************/
-    /**
-     * Mendapatkan NIP dosen.
-     * 
-     * @return NIP dosen
-     */
-/*******  9e7976b1-5187-4642-9d01-5c907d4b1b10  *******/
     public String getNip() {
         return mNip;
     }

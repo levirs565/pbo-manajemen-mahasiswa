@@ -8,7 +8,7 @@ package id.alfonlevi.mahasiswa.view.editdosen;
  *
  * @author LENOVO
  */
-public class EditDosenDialog extends javax.swing.JFrame {
+public class EditDosenDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form EditDosenDialog
@@ -25,22 +25,115 @@ public class EditDosenDialog extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        mNipField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        mUsernameField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        mNamaField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        mPasswordField = new javax.swing.JTextField();
+        mErrorLabel = new javax.swing.JLabel();
+        mActionButton = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText("NIP");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(jLabel1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
+        getContentPane().add(mNipField, gridBagConstraints);
+
+        jLabel2.setText("Username");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(jLabel2, gridBagConstraints);
+
+        mUsernameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mUsernameFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
+        getContentPane().add(mUsernameField, gridBagConstraints);
+
+        jLabel3.setText("Nama");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(jLabel3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
+        getContentPane().add(mNamaField, gridBagConstraints);
+
+        jLabel4.setText("Password");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(jLabel4, gridBagConstraints);
+
+        mPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPasswordFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
+        getContentPane().add(mPasswordField, gridBagConstraints);
+
+        mErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(mErrorLabel, gridBagConstraints);
+
+        mActionButton.setText("Tambah");
+        mActionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mActionButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        getContentPane().add(mActionButton, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mPasswordFieldActionPerformed
+
+    private void mUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mUsernameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mUsernameFieldActionPerformed
+
+    private void mActionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mActionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +171,15 @@ public class EditDosenDialog extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton mActionButton;
+    private javax.swing.JLabel mErrorLabel;
+    private javax.swing.JTextField mNamaField;
+    private javax.swing.JTextField mNipField;
+    private javax.swing.JTextField mPasswordField;
+    private javax.swing.JTextField mUsernameField;
     // End of variables declaration//GEN-END:variables
 }
