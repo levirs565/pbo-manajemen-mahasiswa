@@ -19,6 +19,7 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
     private MataKuliah fromResultSet(ResultSet resultSet) throws SQLException {
         return new MataKuliah(
             resultSet.getString("id"),
+            resultSet.getString("periode_id"),
             resultSet.getString("nama")
         );
     }
@@ -67,8 +68,9 @@ public class MataKuliahDataSource extends BaseDataSource implements MataKuliahRe
 
     @Override
     public boolean add(MataKuliah mataKuliah) {
-        try (var statement = mConnection.prepareStatement("INSERT INTO MataKuliah(nama) VALUES (?)")) {
-            statement.setString(1, mataKuliah.getNama());
+        try (var statement = mConnection.prepareStatement("INSERT INTO MataKuliah(periode_id, nama) VALUES (?, ?)")) {
+            statement.setString(1, mataKuliah.getPeriodeId());
+            statement.setString(2, mataKuliah.getNama());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;

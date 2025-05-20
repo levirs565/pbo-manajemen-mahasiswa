@@ -10,17 +10,20 @@ import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahView;
 
 public class EditMataKuliahController {
-    private MataKuliahRepository mRepository;
-    private EditMataKuliahView mView;
-    private String mId;
+    private final MataKuliahRepository mRepository;
+    private final EditMataKuliahView mView;
+    private final String mId;
+    private String mPeriodeId;
 
-    public EditMataKuliahController(EditMataKuliahView view, String id) {
+    public EditMataKuliahController(EditMataKuliahView view, String id, String periodeId) {
         mView = view;
         mRepository = RepositoryProvider.get().getMataKuliahRepository();
+        mPeriodeId = periodeId;
 
         mId = id;
         if (mId != null) {
             var data = mRepository.get(id);
+            mPeriodeId = data.getPeriodeId();
             mView.showData(false, data);
         } else {
             mView.showData(true, null);
@@ -28,7 +31,7 @@ public class EditMataKuliahController {
     }
 
     public boolean submit(String nama) {
-        var mataKuliah = new MataKuliah(mId, nama);
+        var mataKuliah = new MataKuliah(mId, mPeriodeId, nama);
         if (mId == null) {
             return mRepository.add(mataKuliah);
         } else {

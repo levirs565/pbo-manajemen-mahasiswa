@@ -72,7 +72,7 @@ public class MataKuliahPanel extends javax.swing.JPanel implements MataKuliahVie
 
         var popupMenu = new JPopupMenu();
         popupMenu.add("Ubah").addActionListener(e -> {
-            new EditMataKuliahDialog(mController.getId()).setVisible(true);
+            new EditMataKuliahDialog(mController.getId(), null).setVisible(true);
         });
         popupMenu.add("Hapus").addActionListener(e -> {
 

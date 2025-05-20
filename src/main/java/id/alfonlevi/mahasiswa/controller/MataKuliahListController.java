@@ -48,4 +48,8 @@ public class MataKuliahListController {
         mPeriodeId = periodeId;
         refresh();
     }
+
+    public String getSelectedPeriodeId() {
+        return mPeriodeId;
+    }
 }
