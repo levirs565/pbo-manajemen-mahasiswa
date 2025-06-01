@@ -4,8 +4,8 @@ public class Dosen extends Akun {
     private String mNip;
     private String mNama;
 
-    public Dosen(String username, String password, Role role, String nip, String nama) {
-        super(username, password, role);
+    public Dosen(String username, String password, String nip, String nama) {
+        super(username, password, Role.DOSEN);
         mNip = nip;
         mNama = nama;
     }
