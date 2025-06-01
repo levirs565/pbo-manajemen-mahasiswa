@@ -24,17 +24,22 @@ public class EditKelasController {
         mRepository = RepositoryProvider.get().getKelasRepository();
         mDosenRepository = RepositoryProvider.get().getDosenRepository();
 
+        mView.setDosenComboboxModel(mDosenModel);
+        var dosenList = mDosenRepository.getAll();
+        for (var item : dosenList) {
+            mDosenModel.addElement(item);
+        }
+
         if (id == null) {
             mView.showData(true, null);
         } else {
             var data = mRepository.get(mId);
             mMataKuliahId = data.getMataKuliahId();
             mView.showData(false, data);
-        }
-
-        mView.setDosenComboboxModel(mDosenModel);
-        for (var item : mDosenRepository.getAll()) {
-            mDosenModel.addElement(item);
+            mDosenModel.setSelectedItem(
+                    dosenList.stream()
+                            .filter(x -> x.getUsername().equals(data.getUsernameDosen()))
+                            .findFirst().get());
         }
     }
 

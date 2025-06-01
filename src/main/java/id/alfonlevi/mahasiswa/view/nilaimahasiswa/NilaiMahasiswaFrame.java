@@ -4,17 +4,42 @@
  */
 package id.alfonlevi.mahasiswa.view.nilaimahasiswa;
 
+import id.alfonlevi.mahasiswa.controller.NilaiMahasiswaController;
+import id.alfonlevi.mahasiswa.data.model.Periode;
+import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
+
+import javax.swing.*;
+import javax.swing.table.TableModel;
+
 /**
- *
  * @author LENOVO
  */
-public class NilaiMahasiswaFrame extends javax.swing.JFrame {
+public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMahasiswaView {
+    private NilaiMahasiswaController mController;
 
     /**
      * Creates new form NilaiMahasiswaFrame
      */
     public NilaiMahasiswaFrame() {
         initComponents();
+        mPeriodeComboBox.setRenderer(new PeriodeListCellRenderer());
+
+        mController = new NilaiMahasiswaController(this);
+    }
+
+    @Override
+    public void setPeriodeModel(ComboBoxModel<Periode> model) {
+        mPeriodeComboBox.setModel(model);
+    }
+
+    @Override
+    public void setTableModel(TableModel model) {
+        mTable.setModel(model);
+    }
+
+    @Override
+    public void setError(String error) {
+        mErrorLabel.setText(error);
     }
 
     /**
@@ -36,6 +61,8 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         mPeriodeComboBox = new javax.swing.JComboBox<>();
         mPeriodeLabel = new javax.swing.JLabel();
+        mShowButton = new javax.swing.JButton();
+        mErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -53,7 +80,7 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(mNimField, gridBagConstraints);
 
-        mNamaLabel.setText("NAMA");
+        mNamaLabel.setText("Nama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         getContentPane().add(mNamaLabel, gridBagConstraints);
@@ -82,7 +109,7 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(mTable);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
@@ -90,7 +117,6 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, gridBagConstraints);
         getContentPane().add(jTabbedPane1, new java.awt.GridBagConstraints());
 
-        mPeriodeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         mPeriodeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mPeriodeComboBoxActionPerformed(evt);
@@ -108,6 +134,28 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         getContentPane().add(mPeriodeLabel, gridBagConstraints);
 
+        mShowButton.setText("Tampilkan");
+        mShowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mShowButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        getContentPane().add(mShowButton, gridBagConstraints);
+
+        mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(mErrorLabel, gridBagConstraints);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -124,50 +172,21 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mPeriodeComboBoxActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NilaiMahasiswaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NilaiMahasiswaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NilaiMahasiswaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NilaiMahasiswaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NilaiMahasiswaFrame().setVisible(true);
-            }
-        });
-    }
+    private void mShowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mShowButtonActionPerformed
+        mController.show(mNimField.getText(), mNamaField.getText());
+    }//GEN-LAST:event_mShowButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;
     private javax.swing.JLabel mNamaLabel;
     private javax.swing.JTextField mNimField;
     private javax.swing.JLabel mNimLabel;
-    private javax.swing.JComboBox<String> mPeriodeComboBox;
+    private javax.swing.JComboBox<Periode> mPeriodeComboBox;
     private javax.swing.JLabel mPeriodeLabel;
+    private javax.swing.JButton mShowButton;
     private javax.swing.JTable mTable;
     // End of variables declaration//GEN-END:variables
 }

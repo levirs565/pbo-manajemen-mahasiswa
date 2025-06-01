@@ -42,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
         mTabPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         getContentPane().add(mTabPane);
 
-        setSize(new java.awt.Dimension(414, 308));
+        setSize(new java.awt.Dimension(742, 388));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

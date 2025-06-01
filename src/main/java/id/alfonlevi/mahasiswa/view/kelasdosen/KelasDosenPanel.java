@@ -4,6 +4,8 @@
  */
 package id.alfonlevi.mahasiswa.view.kelasdosen;
 
+import id.alfonlevi.mahasiswa.controller.KelasDosenController;
+import id.alfonlevi.mahasiswa.view.editnilaikelas.EditNilaiKelasDialog;
 import id.alfonlevi.mahasiswa.view.kelas.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.KelasController;
@@ -17,8 +19,8 @@ import javax.swing.table.TableModel;
  *
  * @author levir
  */
-public class KelasDosenPanel extends javax.swing.JPanel implements KelasView, DisposableView {
-    private KelasController mController;
+public class KelasDosenPanel extends javax.swing.JPanel implements KelasDosenView, DisposableView {
+    private KelasDosenController mController;
     
     /**
      * Creates new form KelasPanel
@@ -28,7 +30,7 @@ public class KelasDosenPanel extends javax.swing.JPanel implements KelasView, Di
 
         mTitleLabel.putClientProperty(FlatClientProperties.STYLE_CLASS, "h2");
         
-        mController = new KelasController(this, id);
+        mController = new KelasDosenController(this, id);
         
     }
 
@@ -115,7 +117,7 @@ public class KelasDosenPanel extends javax.swing.JPanel implements KelasView, Di
     }// </editor-fold>//GEN-END:initComponents
 
     private void mEditAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditAnggotaActionPerformed
-       new EditAnggotaKelasDialog(mController.getId()).setVisible(true);
+       new EditNilaiKelasDialog(mController.getId()).setVisible(true);
     }//GEN-LAST:event_mEditAnggotaActionPerformed
 
 

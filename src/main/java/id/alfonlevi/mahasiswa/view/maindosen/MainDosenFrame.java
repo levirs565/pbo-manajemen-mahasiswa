@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package id.alfonlevi.mahasiswa.view.matakuliahlistdosen;
+package id.alfonlevi.mahasiswa.view.maindosen;
 
+import id.alfonlevi.mahasiswa.controller.MainDosenController;
+import id.alfonlevi.mahasiswa.view.matakuliahdosen.MataKuliahDosenPanel;
 import id.alfonlevi.mahasiswa.view.matakuliahlist.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahListController;
@@ -24,18 +26,17 @@ import java.util.List;
 /**
  * @author levir
  */
-public class MataKuliahListDosenPanel extends javax.swing.JPanel implements MataKuliahListView, DisposableView {
+public class MainDosenFrame extends javax.swing.JFrame implements MainDosenView, DisposableView {
     private JLabel mEmptyLabel = new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
-    private JLabel mPeriodeEmptyLabel = new JLabel("Belum Memilih Periode. Jika periode kosong, tambah periode dauhulu", SwingConstants.CENTER);
-    private MataKuliahListController mController;
+    private JLabel mPeriodeEmptyLabel = new JLabel("Belum Memilih Periode", SwingConstants.CENTER);
     private TabbedPaneHelper mTabbedPaneHelper;
-    private JButton mAddButton;
     private JComboBox<Periode> mPeriodeComboBox;
+    private MainDosenController mController;
 
     /**
      * Creates new form MataKuliahPanel
      */
-    public MataKuliahListDosenPanel() {
+    public MainDosenFrame() {
         initComponents();
 
         var boxLayout = Box.createVerticalBox();
@@ -52,22 +53,8 @@ public class MataKuliahListDosenPanel extends javax.swing.JPanel implements Mata
         mPeriodeComboBox.setRenderer(new PeriodeListCellRenderer());
         periodeBox.add(mPeriodeComboBox);
 
-        var periodeEditButton = new JButton("...");
-        periodeEditButton.addActionListener((v) -> {
-            new PeriodeFrame().setVisible(true);
-        });
-        periodeBox.add(periodeEditButton);
-
         periodeBox.setAlignmentX(0);
         boxLayout.add(periodeBox);
-
-        mAddButton = new JButton();
-        mAddButton.setText("Tambah");
-        mAddButton.addActionListener((v) -> {
-            new EditMataKuliahDialog(null, mController.getSelectedPeriodeId()).setVisible(true);
-        });
-        mAddButton.setAlignmentX(0);
-        boxLayout.add(mAddButton);
 
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, boxLayout);
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 175);
@@ -75,10 +62,9 @@ public class MataKuliahListDosenPanel extends javax.swing.JPanel implements Mata
         mTabbedPaneHelper = new TabbedPaneHelper(mTabPane, (id) -> {
             if (id.equals("kosong")) return mEmptyLabel;
             if (id.equals("periode-ajar-kosong")) return mPeriodeEmptyLabel;
-
-            return new MataKuliahPanel(id);
+            return new MataKuliahDosenPanel(id);
         });
-        mController = new MataKuliahListController(this);
+        mController = new MainDosenController(this);
 
         mPeriodeComboBox.addActionListener((v) -> {
             var selected = mPeriodeComboBox.getSelectedItem();
@@ -91,7 +77,6 @@ public class MataKuliahListDosenPanel extends javax.swing.JPanel implements Mata
     @Override
     public void setData(List<MataKuliah> data) {
         var items = new ArrayList<TabbedPaneHelper.Item>();
-        mAddButton.setVisible(data != null);
         if (data == null) {
             items.add(new TabbedPaneHelper.Item("periode-ajar-kosong", "Belum Memilih Periode Ajar"));
         } else if (data.isEmpty()) {
@@ -105,16 +90,8 @@ public class MataKuliahListDosenPanel extends javax.swing.JPanel implements Mata
     }
 
     @Override
-    public void setPeriodeList(List<Periode> periodeList) {
-        mPeriodeComboBox.removeAllItems();
-        for (var periode : periodeList) {
-            mPeriodeComboBox.addItem(periode);
-        }
-    }
-
-    @Override
-    public void dispose() {
-        mController.dispose();
+    public void setPeriodeModel(ComboBoxModel<Periode> model) {
+        mPeriodeComboBox.setModel(model);
     }
 
     /**
@@ -128,10 +105,14 @@ public class MataKuliahListDosenPanel extends javax.swing.JPanel implements Mata
 
         mTabPane = new javax.swing.JTabbedPane();
 
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         mTabPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        add(mTabPane);
+        getContentPane().add(mTabPane);
+
+        setSize(new java.awt.Dimension(725, 419));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
 

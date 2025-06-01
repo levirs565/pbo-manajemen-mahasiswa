@@ -5,6 +5,7 @@
 package id.alfonlevi.mahasiswa;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import id.alfonlevi.mahasiswa.view.login.LoginFrame;
 import id.alfonlevi.mahasiswa.view.main.MainFrame;
 import java.awt.EventQueue;
 
@@ -30,7 +31,7 @@ public class Main {
         FlatIntelliJLaf.setup();
  
         EventQueue.invokeLater(() -> {
-            new MainFrame().setVisible(true);
+            new LoginFrame().setVisible(true);
         });
     }
 }

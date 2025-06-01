@@ -7,8 +7,7 @@ import id.alfonlevi.mahasiswa.data.repository.KelasRepository;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -21,10 +20,10 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
 
     private Kelas fromResultSet(ResultSet resultSet) throws SQLException {
         return new Kelas(
-            resultSet.getString("id"),
-            resultSet.getString("nama"),
-            resultSet.getString("mata_kuliah_id"),
-            resultSet.getString("username_dosen")
+                resultSet.getString("id"),
+                resultSet.getString("nama"),
+                resultSet.getString("mata_kuliah_id"),
+                resultSet.getString("username_dosen")
         );
     }
 
@@ -32,7 +31,7 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     public List<Kelas> getAll(String mataKuliahId) {
         var result = new ArrayList<Kelas>();
         try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas where mata_kuliah_id = ?")) {
-            statement.setString(1, mataKuliahId);   
+            statement.setString(1, mataKuliahId);
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result.add(fromResultSet(resultSet));
@@ -47,8 +46,8 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     public List<Kelas> getAll(String mataKuliahId, String usernameDosen) {
         var result = new ArrayList<Kelas>();
         try (var statement = mConnection.prepareStatement("SELECT * FROM Kelas where mata_kuliah_id = ? and username_dosen = ?")) {
-            statement.setString(1, mataKuliahId);   
-            statement.setString(2, usernameDosen);   
+            statement.setString(1, mataKuliahId);
+            statement.setString(2, usernameDosen);
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result.add(fromResultSet(resultSet));
@@ -76,9 +75,10 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
     @Override
     public boolean update(Kelas kelas) {
         try (var statement = mConnection.prepareStatement(
-                "UPDATE Kelas SET nama = ? WHERE id = ?")) {
+                "UPDATE Kelas SET nama = ?, username_dosen = ? WHERE id = ?")) {
             statement.setString(1, kelas.getNama());
-            statement.setString(2, kelas.getId());
+            statement.setString(2, kelas.getUsernameDosen());
+            statement.setString(3, kelas.getId());
             boolean result = statement.executeUpdate() > 0;
             invokeListener();
             return result;
@@ -119,8 +119,8 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         var result = new ArrayList<Mahasiswa>();
 
         try (var statement = mConnection.prepareStatement("select * from MahasiswaKelas " + //
-                        "inner join Mahasiswa on MahasiswaKelas.mahasiswa_nim = Mahasiswa.nim " + //
-                        "where MahasiswaKelas.kelas_id = ? ")) {
+                "inner join Mahasiswa on MahasiswaKelas.mahasiswa_nim = Mahasiswa.nim " + //
+                "where MahasiswaKelas.kelas_id = ? ")) {
             statement.setString(1, id);
             var resultSet = statement.executeQuery();
 
@@ -131,7 +131,23 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
             throw new RuntimeException(e);
         }
 
-        return result;    }
+        return result;
+    }
+
+    @Override
+    public Map<String, Integer> getNilaiKelas(String id) {
+        var result = new HashMap<String, Integer>();
+        try (var statement = mConnection.prepareStatement("SELECT * FROM MahasiswaKelas where kelas_id = ?")) {
+            statement.setString(1, id);
+            var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result.put(resultSet.getString("mahasiswa_nim"), resultSet.getInt("nilai"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
     @Override
     public void updateAnggotaKelas(String id, List<String> nimList) {
@@ -148,7 +164,7 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
+
         try (var statement = mConnection.prepareStatement("INSERT ignore INTO MahasiswaKelas(kelas_id, mahasiswa_nim) VALUES (?, ?)")) {
             for (String nim : nimList) {
                 statement.setString(1, id);
@@ -160,5 +176,23 @@ public class KelasDataSource extends BaseDataSource implements KelasRepository {
         }
 
         invokeListener();
+    }
+
+    @Override
+    public boolean updateNilaiKelas(String id, Map<String, Integer> nilai) {
+        try (var statement = mConnection.prepareStatement("UPDATE MahasiswaKelas SET nilai = ? WHERE kelas_id = ? AND mahasiswa_nim = ?")) {
+            for (var entry : nilai.entrySet()) {
+                statement.setInt(1, entry.getValue());
+                statement.setString(2, id);
+                statement.setString(3, entry.getKey());
+                statement.addBatch();
+            }
+            var result = Arrays.stream(statement.executeBatch()).sum() == nilai.size();
+            invokeListener();
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+//        return false;
     }
 }

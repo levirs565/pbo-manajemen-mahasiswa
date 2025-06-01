@@ -4,6 +4,8 @@
  */
 package id.alfonlevi.mahasiswa.view.matakuliahdosen;
 
+import id.alfonlevi.mahasiswa.controller.MataKuliahDosenController;
+import id.alfonlevi.mahasiswa.view.kelasdosen.KelasDosenPanel;
 import id.alfonlevi.mahasiswa.view.matakuliah.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MataKuliahController;
@@ -23,10 +25,10 @@ import java.util.List;
  *
  * @author levir
  */
-public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuliahView, DisposableView {
+public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuliahDosenView {
     private JLabel mNameLabel = new JLabel("Nama");
     private JLabel mEmptyLabel =  new JLabel("Belum ada mata kelas", SwingConstants.CENTER);
-    private MataKuliahController mController;
+    private MataKuliahDosenController mController;
     private TabbedPaneHelper mTabbedPaneHelper;
 
     /**
@@ -46,20 +48,10 @@ public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuli
         titleBox.add(mNameLabel);
         titleBox.add(Box.createHorizontalGlue());
 
-        var moreButton = new JButton("...");
-        titleBox.add(moreButton);
-
         var subtitle = new JLabel("Daftar Kelas");
         subtitle.putClientProperty(FlatClientProperties.STYLE_CLASS, "h3");
         subtitle.setAlignmentX(0);
         box.add(subtitle);
-
-        var addButton = new JButton("Add");
-        addButton.setAlignmentX(0);
-        addButton.addActionListener((v) -> {
-            new EditKelasDialog(null, mController.getId()).setVisible(true);
-        });
-        box.add(addButton);
 
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, box);
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 125);
@@ -68,22 +60,10 @@ public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuli
             if (cid.equals("")) {
                 return mEmptyLabel;
             }
-            return new KelasPanel(cid);
+            return new KelasDosenPanel(cid);
         });
 
-        mController = new MataKuliahController(this, id);
-
-        var popupMenu = new JPopupMenu();
-        popupMenu.add("Ubah").addActionListener(e -> {
-            new EditMataKuliahDialog(mController.getId(), null).setVisible(true);
-        });
-        popupMenu.add("Hapus").addActionListener(e -> {
-            mController.delete();
-        });
-
-        moreButton.addActionListener(e -> {
-            popupMenu.show(moreButton, 0, moreButton.getHeight());
-        });
+        mController = new MataKuliahDosenController(this, id);
     }
 
     @Override
@@ -102,11 +82,6 @@ public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuli
             }
         }
         mTabbedPaneHelper.setItems(items);
-    }
-
-    @Override
-    public void dispose() {
-        mController.dispose();
     }
 
     /**

@@ -4,17 +4,31 @@
  */
 package id.alfonlevi.mahasiswa.view.login;
 
+import id.alfonlevi.mahasiswa.controller.LoginController;
+import id.alfonlevi.mahasiswa.data.model.Akun;
+import id.alfonlevi.mahasiswa.view.main.MainFrame;
+import id.alfonlevi.mahasiswa.view.maindosen.MainDosenFrame;
+import id.alfonlevi.mahasiswa.view.nilaimahasiswa.NilaiMahasiswaFrame;
+
+import javax.swing.*;
+
 /**
- *
  * @author LENOVO
  */
-public class LoginFrame extends javax.swing.JFrame {
+public class LoginFrame extends javax.swing.JFrame implements LoginView {
+    private LoginController mController;
 
     /**
      * Creates new form LoginFrame
      */
     public LoginFrame() {
         initComponents();
+        mController = new LoginController(this);
+    }
+
+    @Override
+    public void showError(String error) {
+        mErrorLabel.setText(error);
     }
 
     /**
@@ -66,6 +80,7 @@ public class LoginFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mPasswordField, gridBagConstraints);
 
+        mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         mErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -99,7 +114,8 @@ public class LoginFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mLihatNilaiButton, gridBagConstraints);
 
-        pack();
+        setSize(new java.awt.Dimension(414, 191));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mUsernameFieldActionPerformed
@@ -107,47 +123,17 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mUsernameFieldActionPerformed
 
     private void mLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLoginButtonActionPerformed
-        // TODO add your handling code here:
+        var result = mController.login(mUsernameField.getText(), mPasswordField.getText());
+        if (result.isEmpty()) return;
+        if (result.get() == Akun.Role.ADMIN) new MainFrame().setVisible(true);
+        if (result.get() == Akun.Role.DOSEN) new MainDosenFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_mLoginButtonActionPerformed
 
     private void mLihatNilaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLihatNilaiButtonActionPerformed
-        // TODO add your handling code here:
+        new NilaiMahasiswaFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_mLihatNilaiButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel mErrorLabel;

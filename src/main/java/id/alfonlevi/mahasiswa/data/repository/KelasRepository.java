@@ -4,6 +4,7 @@ import id.alfonlevi.mahasiswa.data.model.Kelas;
 import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
 
 import java.util.List;
+import java.util.Map;
 
 public interface KelasRepository extends BaseRepository {
     List<Kelas> getAll(String mataKuliahId);
@@ -14,5 +15,7 @@ public interface KelasRepository extends BaseRepository {
     boolean delete(String id);
 
     List<Mahasiswa> getAnggotaKelas(String id);
+    Map<String, Integer> getNilaiKelas(String id);
     void updateAnggotaKelas(String id, List<String> nimList);
+    boolean updateNilaiKelas(String id, Map<String, Integer> nilai);
 }
