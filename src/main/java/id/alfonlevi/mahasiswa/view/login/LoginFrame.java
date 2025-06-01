@@ -28,8 +28,8 @@ public class LoginFrame extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         mUsernameField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        mUsernameLabel = new javax.swing.JLabel();
+        mPasswordLabel = new javax.swing.JLabel();
         mPasswordField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mLoginButton = new javax.swing.JButton();
@@ -50,15 +50,15 @@ public class LoginFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mUsernameField, gridBagConstraints);
 
-        jLabel1.setText("Username");
+        mUsernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(mUsernameLabel, gridBagConstraints);
 
-        jLabel2.setText("Password");
+        mPasswordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(mPasswordLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -134,11 +134,11 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JButton mLoginButton;
     private javax.swing.JTextField mPasswordField;
+    private javax.swing.JLabel mPasswordLabel;
     private javax.swing.JTextField mUsernameField;
+    private javax.swing.JLabel mUsernameLabel;
     // End of variables declaration//GEN-END:variables
 }

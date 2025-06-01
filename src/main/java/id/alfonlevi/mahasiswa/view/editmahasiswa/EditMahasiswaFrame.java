@@ -56,9 +56,9 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel1 = new javax.swing.JLabel();
+        mNimLabel = new javax.swing.JLabel();
         mNimField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        mNamaLabel = new javax.swing.JLabel();
         mNamaField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mActionButton = new javax.swing.JButton();
@@ -67,13 +67,13 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("NIM");
+        mNimLabel.setText("NIM");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(mNimLabel, gridBagConstraints);
 
         mNimField.setAlignmentX(0.0F);
         mNimField.setMaximumSize(new java.awt.Dimension(2147483647, 22));
@@ -85,13 +85,13 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         getContentPane().add(mNimField, gridBagConstraints);
 
-        jLabel2.setText("Nama");
+        mNamaLabel.setText("Nama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(mNamaLabel, gridBagConstraints);
 
         mNamaField.setAlignmentX(0.0F);
         mNamaField.setMaximumSize(new java.awt.Dimension(2147483647, 22));
@@ -103,7 +103,7 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         getContentPane().add(mNamaField, gridBagConstraints);
 
-        mErrorLabel.setForeground(new java.awt.Color(255, 0, 51));
+        mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -122,6 +122,8 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mActionButton, gridBagConstraints);
+
+        mErroLabel.setForeground(new java.awt.Color(255, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -153,12 +155,12 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
     }//GEN-LAST:event_mActionButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton mActionButton;
     private javax.swing.JLabel mErroLabel;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;
+    private javax.swing.JLabel mNamaLabel;
     private javax.swing.JTextField mNimField;
+    private javax.swing.JLabel mNimLabel;
     // End of variables declaration//GEN-END:variables
 }

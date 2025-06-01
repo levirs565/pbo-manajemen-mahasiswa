@@ -67,6 +67,7 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         jPanel2 = new javax.swing.JPanel();
         mEditAnggota = new javax.swing.JButton();
 
+        setForeground(new java.awt.Color(255, 0, 0));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel1.setAlignmentX(0.0F);
