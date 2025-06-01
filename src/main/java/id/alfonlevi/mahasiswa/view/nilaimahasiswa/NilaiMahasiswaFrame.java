@@ -25,6 +25,7 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         mNimLabel = new javax.swing.JLabel();
         mNimField = new javax.swing.JTextField();
@@ -33,29 +34,39 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         mTable = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        mPeriodeComboBox = new javax.swing.JComboBox<>();
+        mPeriodeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mNimLabel.setText("NIM");
-        getContentPane().add(mNimLabel);
+        getContentPane().add(mNimLabel, new java.awt.GridBagConstraints());
 
         mNimField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mNimFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(mNimField);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(mNimField, gridBagConstraints);
 
         mNamaLabel.setText("NAMA");
-        getContentPane().add(mNamaLabel);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        getContentPane().add(mNamaLabel, gridBagConstraints);
 
         mNamaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mNamaFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(mNamaField);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(mNamaField, gridBagConstraints);
 
         mTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,8 +81,32 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(mTable);
 
-        getContentPane().add(jScrollPane1);
-        getContentPane().add(jTabbedPane1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+        getContentPane().add(jTabbedPane1, new java.awt.GridBagConstraints());
+
+        mPeriodeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        mPeriodeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPeriodeComboBoxActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(mPeriodeComboBox, gridBagConstraints);
+
+        mPeriodeLabel.setText("Periode");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        getContentPane().add(mPeriodeLabel, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -84,6 +119,10 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
     private void mNamaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mNamaFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mNamaFieldActionPerformed
+
+    private void mPeriodeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPeriodeComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mPeriodeComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,6 +166,8 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel mNamaLabel;
     private javax.swing.JTextField mNimField;
     private javax.swing.JLabel mNimLabel;
+    private javax.swing.JComboBox<String> mPeriodeComboBox;
+    private javax.swing.JLabel mPeriodeLabel;
     private javax.swing.JTable mTable;
     // End of variables declaration//GEN-END:variables
 }
