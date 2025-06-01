@@ -33,6 +33,7 @@ public class LoginFrame extends javax.swing.JFrame {
         mPasswordField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mLoginButton = new javax.swing.JButton();
+        mLihatNilaiButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -87,6 +88,17 @@ public class LoginFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mLoginButton, gridBagConstraints);
 
+        mLihatNilaiButton.setText("Lihat Nilai Mahasiswa");
+        mLihatNilaiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mLihatNilaiButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        getContentPane().add(mLihatNilaiButton, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -97,6 +109,10 @@ public class LoginFrame extends javax.swing.JFrame {
     private void mLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLoginButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mLoginButtonActionPerformed
+
+    private void mLihatNilaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLihatNilaiButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mLihatNilaiButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +151,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel mErrorLabel;
+    private javax.swing.JButton mLihatNilaiButton;
     private javax.swing.JButton mLoginButton;
     private javax.swing.JTextField mPasswordField;
     private javax.swing.JLabel mPasswordLabel;
