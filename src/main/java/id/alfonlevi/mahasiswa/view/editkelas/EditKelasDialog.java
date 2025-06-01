@@ -44,10 +44,15 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         mNamaField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mActionButton = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -67,10 +72,11 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
         getContentPane().add(mNamaField, gridBagConstraints);
 
         mErrorLabel.setForeground(new java.awt.Color(204, 0, 51));
+        mErrorLabel.setToolTipText("");
         mErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
@@ -85,9 +91,22 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mActionButton, gridBagConstraints);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jComboBox1, gridBagConstraints);
+
+        jLabel3.setText("Dosen");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        getContentPane().add(jLabel3, gridBagConstraints);
 
         setSize(new java.awt.Dimension(414, 118));
         setLocationRelativeTo(null);
@@ -99,7 +118,10 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
     }//GEN-LAST:event_mActionButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton mActionButton;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;
