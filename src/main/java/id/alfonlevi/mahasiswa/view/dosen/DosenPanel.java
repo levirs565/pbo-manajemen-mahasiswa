@@ -6,11 +6,14 @@ package id.alfonlevi.mahasiswa.view.dosen;
 
 import id.alfonlevi.mahasiswa.controller.DosenController;
 import id.alfonlevi.mahasiswa.view.base.DisposableView;
+import id.alfonlevi.mahasiswa.view.editdosen.EditDosenDialog;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
 /**
- *
  * @author levir
  */
 public class DosenPanel extends javax.swing.JPanel implements DosenView, DisposableView {
@@ -22,6 +25,13 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
     public DosenPanel() {
         initComponents();
         mController = new DosenController(this);
+
+        mTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                mController.updateSelected(e.getFirstIndex());
+            }
+        });
     }
 
     @Override
@@ -32,6 +42,11 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
     @Override
     public void setTableModel(TableModel model) {
         mTable.setModel(model);
+    }
+
+    @Override
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -77,18 +92,46 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         mAddButton.setText("Tambah");
+        mAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mAddButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(mAddButton);
         jPanel1.add(filler2);
 
         mEditButton.setText("Ubah");
+        mEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mEditButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(mEditButton);
         jPanel1.add(filler3);
 
         mDeleteButton.setText("Hapus");
+        mDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mDeleteButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(mDeleteButton);
 
         add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAddButtonActionPerformed
+        new EditDosenDialog(null).setVisible(true);
+    }//GEN-LAST:event_mAddButtonActionPerformed
+
+    private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
+        var id = mController.getSelectedUsername();
+        if (id != null) new EditDosenDialog(id).setVisible(true);
+    }//GEN-LAST:event_mEditButtonActionPerformed
+
+    private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed
+        mController.deleteSelected();
+    }//GEN-LAST:event_mDeleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

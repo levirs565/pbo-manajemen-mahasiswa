@@ -52,4 +52,13 @@ public class AkunDataSource extends BaseDataSource implements AkunRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean delete(String username) {
+        try (var statement = mConnection.prepareStatement("DELETE FROM Akun WHERE username = ?")) {
+            statement.setString(1, username);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

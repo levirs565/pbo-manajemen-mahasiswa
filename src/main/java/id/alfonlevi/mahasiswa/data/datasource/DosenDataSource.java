@@ -106,6 +106,12 @@ public class DosenDataSource extends BaseDataSource implements DosenRepository {
 
             statement.setString(1, username);
             boolean result = statement.executeUpdate() > 0;
+            if  (!result) {
+                invokeListener();
+                return false;
+            }
+
+            result = mAkunDataSource.delete(username);
             invokeListener();
             return result;
         } catch (SQLException e) {

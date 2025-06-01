@@ -5,10 +5,13 @@
 package id.alfonlevi.mahasiswa.view.editkelas;
 
 import id.alfonlevi.mahasiswa.controller.EditKelasController;
+import id.alfonlevi.mahasiswa.data.model.Dosen;
 import id.alfonlevi.mahasiswa.data.model.Kelas;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
- *
  * @author levir
  */
 public class EditKelasDialog extends javax.swing.JDialog implements EditKelasView {
@@ -22,6 +25,16 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
 
         setModal(true);
         mController = new EditKelasController(this, id, mataKuliahId);
+
+        mDosenComboBox.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                if (value instanceof Dosen) {
+                    value = ((Dosen) value).getNama();
+                }
+                return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            }
+        });
     }
 
     @Override
@@ -32,6 +45,11 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
             setTitle("Ubah Kelas");
             mNamaField.setText(kelas.getNama());
         }
+    }
+
+    @Override
+    public void setDosenComboboxModel(ComboBoxModel<Dosen> model) {
+        mDosenComboBox.setModel(model);
     }
 
     /**
@@ -94,8 +112,6 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mActionButton, gridBagConstraints);
-
-        mDosenComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -113,14 +129,13 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
     }// </editor-fold>//GEN-END:initComponents
 
     private void mActionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionButtonActionPerformed
-        if (mController.submit(mNamaField.getText()))
-            dispose();
+        if (mController.submit(mNamaField.getText())) dispose();
     }//GEN-LAST:event_mActionButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton mActionButton;
-    private javax.swing.JComboBox<String> mDosenComboBox;
+    private javax.swing.JComboBox<Dosen> mDosenComboBox;
     private javax.swing.JLabel mDosenLabel;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;

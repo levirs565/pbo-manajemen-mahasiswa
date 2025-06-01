@@ -4,17 +4,41 @@
  */
 package id.alfonlevi.mahasiswa.view.editdosen;
 
+import id.alfonlevi.mahasiswa.controller.EditDosenController;
+import id.alfonlevi.mahasiswa.data.model.Dosen;
+
 /**
- *
  * @author LENOVO
  */
-public class EditDosenDialog extends javax.swing.JDialog {
+public class EditDosenDialog extends javax.swing.JDialog implements EditDosenView {
+    private final EditDosenController mController;
 
     /**
      * Creates new form EditDosenDialog
      */
-    public EditDosenDialog() {
+    public EditDosenDialog(String username) {
         initComponents();
+        setModal(true);
+        mController = new EditDosenController(this, username);
+    }
+
+    @Override
+    public void showData(boolean isNew, Dosen dosen) {
+        if (!isNew) {
+            mNipField.setText(dosen.getNip());
+            mUsernameField.setText(dosen.getUsername());
+            mUsernameField.setEditable(false);
+            mNamaField.setText(dosen.getNama());
+            mPasswordField.setVisible(false);
+            mPasswordLabel.setVisible(false);
+            mActionButton.setText("Ubah");
+        }
+        setTitle(isNew ? "Tambar Dosen" : "Ubah Dosen");
+    }
+
+    @Override
+    public void showError(String error) {
+        mErrorLabel.setText(error);
     }
 
     /**
@@ -27,13 +51,13 @@ public class EditDosenDialog extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel1 = new javax.swing.JLabel();
+        mNipLabel = new javax.swing.JLabel();
         mNipField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        mUsernameLabel = new javax.swing.JLabel();
         mUsernameField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        mNamalabel = new javax.swing.JLabel();
         mNamaField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        mPasswordLabel = new javax.swing.JLabel();
         mPasswordField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mActionButton = new javax.swing.JButton();
@@ -41,21 +65,21 @@ public class EditDosenDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("NIP");
+        mNipLabel.setText("NIP");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(mNipLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mNipField, gridBagConstraints);
 
-        jLabel2.setText("Username");
+        mUsernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(mUsernameLabel, gridBagConstraints);
 
         mUsernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,11 +93,11 @@ public class EditDosenDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mUsernameField, gridBagConstraints);
 
-        jLabel3.setText("Nama");
+        mNamalabel.setText("Nama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(mNamalabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -81,11 +105,11 @@ public class EditDosenDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mNamaField, gridBagConstraints);
 
-        jLabel4.setText("Password");
+        mPasswordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        getContentPane().add(jLabel4, gridBagConstraints);
+        getContentPane().add(mPasswordLabel, gridBagConstraints);
 
         mPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +123,7 @@ public class EditDosenDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mPasswordField, gridBagConstraints);
 
+        mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         mErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -120,7 +145,8 @@ public class EditDosenDialog extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mActionButton, gridBagConstraints);
 
-        pack();
+        setSize(new java.awt.Dimension(439, 308));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPasswordFieldActionPerformed
@@ -132,54 +158,21 @@ public class EditDosenDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_mUsernameFieldActionPerformed
 
     private void mActionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionButtonActionPerformed
-        // TODO add your handling code here:
+        if (mController.submit(mUsernameField.getText(), mNipField.getText(), mNamaField.getText(), mPasswordField.getText())) {
+            dispose();
+        }
     }//GEN-LAST:event_mActionButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditDosenDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditDosenDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditDosenDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditDosenDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditDosenDialog().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton mActionButton;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;
+    private javax.swing.JLabel mNamalabel;
     private javax.swing.JTextField mNipField;
+    private javax.swing.JLabel mNipLabel;
     private javax.swing.JTextField mPasswordField;
+    private javax.swing.JLabel mPasswordLabel;
     private javax.swing.JTextField mUsernameField;
+    private javax.swing.JLabel mUsernameLabel;
     // End of variables declaration//GEN-END:variables
 }
