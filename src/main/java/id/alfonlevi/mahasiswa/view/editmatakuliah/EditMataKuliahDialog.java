@@ -53,7 +53,7 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel1 = new javax.swing.JLabel();
+        mNamaLabel = new javax.swing.JLabel();
         mNamaField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mActionButton = new javax.swing.JButton();
@@ -61,12 +61,12 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Nama");
+        mNamaLabel.setText("Nama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(mNamaLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -75,7 +75,7 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         getContentPane().add(mNamaField, gridBagConstraints);
 
-        mErrorLabel.setForeground(new java.awt.Color(255, 0, 51));
+        mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         mErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -110,9 +110,9 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton mActionButton;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JTextField mNamaField;
+    private javax.swing.JLabel mNamaLabel;
     // End of variables declaration//GEN-END:variables
 }

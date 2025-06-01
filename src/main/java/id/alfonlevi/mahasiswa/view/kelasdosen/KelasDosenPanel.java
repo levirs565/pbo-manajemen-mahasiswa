@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package id.alfonlevi.mahasiswa.view.kelas;
+package id.alfonlevi.mahasiswa.view.kelasdosen;
 
+import id.alfonlevi.mahasiswa.view.kelas.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.KelasController;
 import id.alfonlevi.mahasiswa.view.base.DisposableView;
@@ -16,13 +17,13 @@ import javax.swing.table.TableModel;
  *
  * @author levir
  */
-public class KelasPanel extends javax.swing.JPanel implements KelasView, DisposableView {
+public class KelasDosenPanel extends javax.swing.JPanel implements KelasView, DisposableView {
     private KelasController mController;
     
     /**
      * Creates new form KelasPanel
      */
-    public KelasPanel(String id) {
+    public KelasDosenPanel(String id) {
         initComponents();
 
         mTitleLabel.putClientProperty(FlatClientProperties.STYLE_CLASS, "h2");
@@ -58,8 +59,6 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         jPanel1 = new javax.swing.JPanel();
         mTitleLabel = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        mEditButton = new javax.swing.JButton();
-        mDeleteButton = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         jScrollPane1 = new javax.swing.JScrollPane();
         mTable = new javax.swing.JTable();
@@ -77,22 +76,6 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         mTitleLabel.setText("jLabel1");
         jPanel1.add(mTitleLabel);
         jPanel1.add(filler1);
-
-        mEditButton.setText("Ubah");
-        mEditButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mEditButtonActionPerformed(evt);
-            }
-        });
-        jPanel1.add(mEditButton);
-
-        mDeleteButton.setText("Hapus");
-        mDeleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mDeleteButtonActionPerformed(evt);
-            }
-        });
-        jPanel1.add(mDeleteButton);
 
         add(jPanel1);
         add(filler2);
@@ -120,7 +103,7 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         jPanel2.setAlignmentY(0.0F);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
 
-        mEditAnggota.setText("Ubah Anggota");
+        mEditAnggota.setText("Ubah Nilai");
         mEditAnggota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mEditAnggotaActionPerformed(evt);
@@ -131,17 +114,9 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
-        new EditKelasDialog(mController.getId(), null).setVisible(true);
-    }//GEN-LAST:event_mEditButtonActionPerformed
-
     private void mEditAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditAnggotaActionPerformed
        new EditAnggotaKelasDialog(mController.getId()).setVisible(true);
     }//GEN-LAST:event_mEditAnggotaActionPerformed
-
-    private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed
-        mController.delete();
-    }//GEN-LAST:event_mDeleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -151,9 +126,7 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton mDeleteButton;
     private javax.swing.JButton mEditAnggota;
-    private javax.swing.JButton mEditButton;
     private javax.swing.JTable mTable;
     private javax.swing.JLabel mTitleLabel;
     // End of variables declaration//GEN-END:variables

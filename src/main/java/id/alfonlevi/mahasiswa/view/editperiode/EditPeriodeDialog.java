@@ -78,9 +78,9 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel1 = new javax.swing.JLabel();
+        mTahunLabel = new javax.swing.JLabel();
         mTahunComboBox = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        mSemesterLabel = new javax.swing.JLabel();
         mSemesterComboBox = new javax.swing.JComboBox<>();
         mErrorLabel = new javax.swing.JLabel();
         mActionButton = new javax.swing.JButton();
@@ -88,12 +88,12 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Tahun");
+        mTahunLabel.setText("Tahun");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(mTahunLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -102,11 +102,11 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mTahunComboBox, gridBagConstraints);
 
-        jLabel2.setText("Semester");
+        mSemesterLabel.setText("Semester");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(mSemesterLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -115,7 +115,7 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
         getContentPane().add(mSemesterComboBox, gridBagConstraints);
 
-        mErrorLabel.setForeground(new java.awt.Color(204, 0, 51));
+        mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -151,11 +151,11 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
     }//GEN-LAST:event_mActionButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton mActionButton;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JComboBox<String> mSemesterComboBox;
+    private javax.swing.JLabel mSemesterLabel;
     private javax.swing.JComboBox<Integer> mTahunComboBox;
+    private javax.swing.JLabel mTahunLabel;
     // End of variables declaration//GEN-END:variables
 }

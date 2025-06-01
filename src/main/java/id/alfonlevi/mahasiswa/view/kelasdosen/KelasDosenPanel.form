@@ -46,22 +46,6 @@
             <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalGlue"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="mEditButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ubah"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mEditButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="mDeleteButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Hapus"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mDeleteButtonActionPerformed"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.Box$Filler" name="filler2">
@@ -133,7 +117,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="mEditAnggota">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ubah Anggota"/>
+            <Property name="text" type="java.lang.String" value="Ubah Nilai"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mEditAnggotaActionPerformed"/>

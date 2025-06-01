@@ -54,6 +54,7 @@ public class RepositoryProvider {
                 statement.addBatch("CREATE TABLE IF NOT EXISTS MahasiswaKelas(" +
                         "mahasiswa_nim VARCHAR(10) NOT NULL," +
                         "kelas_id VARCHAR(36) NOT NULL," +
+                        "nilai INTEGER NOT NULL DEFAULT(0)," +
                         "PRIMARY KEY (mahasiswa_nim, kelas_id)," +
                         "FOREIGN KEY (mahasiswa_nim) REFERENCES Mahasiswa(nim) ON DELETE CASCADE ON UPDATE CASCADE," +
                         "FOREIGN KEY (kelas_id) REFERENCES Kelas(id) ON DELETE CASCADE ON UPDATE CASCADE)");
