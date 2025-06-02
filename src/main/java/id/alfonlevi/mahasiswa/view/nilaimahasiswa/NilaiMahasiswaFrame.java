@@ -30,7 +30,7 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
 
         ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        MenuHelper.applyMenu(this, false);
+        MenuHelper.applyMenu(this, false, true);
     }
 
     @Override

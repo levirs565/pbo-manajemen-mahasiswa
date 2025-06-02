@@ -10,20 +10,23 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class MenuHelper {
-    private MenuHelper() {}
+    private MenuHelper() {
+    }
 
-    public static void applyMenu(JFrame frame, boolean akun) {
+    public static void applyMenu(JFrame frame, boolean akun, boolean showLogin) {
         var menu = new JMenuBar();
 
-        if (akun) {
+        if (akun || showLogin) {
             var akunMenu = new JMenu("Akun");
-            akunMenu.add(new AbstractAction("Ubah Password") {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    new UpdatePasswordDialog().setVisible(true);
-                }
-            });
-            akunMenu.add(new AbstractAction("Logout") {
+            if (akun) {
+                akunMenu.add(new AbstractAction("Ubah Password") {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        new UpdatePasswordDialog().setVisible(true);
+                    }
+                });
+            }
+            akunMenu.add(new AbstractAction(showLogin ? "Login" : "Logout") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Auth.USERNAME = null;

@@ -39,7 +39,7 @@ public class MainFrame extends javax.swing.JFrame {
                 new TabbedPaneHelper.Item("2", "Matakuliah")
         ));
 
-        MenuHelper.applyMenu(this, true);
+        MenuHelper.applyMenu(this, true, false);
     }
 
     @Override

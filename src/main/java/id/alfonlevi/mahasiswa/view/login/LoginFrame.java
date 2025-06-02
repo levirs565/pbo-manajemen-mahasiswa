@@ -29,7 +29,7 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         
         ((JComponent)getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        MenuHelper.applyMenu(this, false);
+        MenuHelper.applyMenu(this, false, false);
     }
 
     @Override
