@@ -54,7 +54,7 @@ public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuli
         box.add(subtitle);
 
         mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, box);
-        mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 125);
+        mTabPane.putClientProperty(FlatClientProperties.TABBED_PANE_MINIMUM_TAB_WIDTH, 175);
 
         mTabbedPaneHelper = new TabbedPaneHelper(mTabPane, (cid) -> {
             if (cid.equals("")) {
