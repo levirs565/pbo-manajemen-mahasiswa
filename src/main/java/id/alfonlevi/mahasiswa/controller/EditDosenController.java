@@ -32,31 +32,23 @@ public class EditDosenController {
     }
 
     public boolean submit(String username, String nip, String nama, String password) {
-        if (username.isBlank()) {
-            mView.showError("Username tidak boleh kosong");
+        try {
+            Utils.ensureNotBlank("Username", username);
+            if (!mIsEdit && mAkunRepository.get(username) != null) {
+                throw new Utils.ControllerException("Username telah digunakan");
+            }
+            Utils.ensureNotBlank("NIP", nip);
+            Utils.ensureNotBlank("Nama", nama);
+            if (!mIsEdit) Utils.ensureNotBlank("Password", password);
+            var data = new Dosen(mIsEdit ? mUsername : username, mIsEdit ? mItem.getPassword() : password, nip, nama);
+            if (mIsEdit) {
+                return mRepository.update(data);
+            } else {
+                return mRepository.add(data);
+            }
+        } catch (Utils.ControllerException e) {
+            mView.showError(e.getMessage());
             return false;
-        }
-        if (!mIsEdit && mAkunRepository.get(username) != null) {
-            mView.showError("Username telah digunakan");
-            return false;
-        }
-        if (nip.isBlank()) {
-            mView.showError("NIP tidak boleh kosong");
-            return false;
-        }
-        if (nama.isBlank()) {
-            mView.showError("Password tidak boleh kosong");
-            return false;
-        }
-        if (!mIsEdit && password.isBlank()) {
-            mView.showError("Password tidak boleh kosong");
-            return false;
-        }
-        var data = new Dosen(mIsEdit ? mUsername : username, mIsEdit ? mItem.getPassword() : password, nip, nama);
-        if (mIsEdit) {
-            return mRepository.update(data);
-        } else {
-            return mRepository.add(data);
         }
     }
 }

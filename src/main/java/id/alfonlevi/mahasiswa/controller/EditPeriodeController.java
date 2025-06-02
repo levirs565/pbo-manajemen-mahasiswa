@@ -40,26 +40,26 @@ public class EditPeriodeController {
     }
 
     public boolean submit() {
-        var tahun = mTahunModel.getSelectedItem();
-        var semester = mSemesterModel.getSelectedItem();
-        if (tahun == null) {
-            mView.showError("Tahun belum dipilih");
-            return false;
-        }
-        if (semester == null) {
-            mView.showError("Semester belum dipilih");
-            return false;
-        }
-        var periode = new Periode(
-                mId,
-                (Integer) tahun,
-                Objects.equals(semester, Periode.sSEMESTER[1])
-        );
+        try {
+            var tahun = mTahunModel.getSelectedItem();
+            var semester = mSemesterModel.getSelectedItem();
+            Utils.ensureNotBlank("Tahun", tahun);
+            Utils.ensureNotBlank("Semester", semester);
 
-        if (mId == null) {
-            return mRepository.add(periode);
-        } else {
-            return mRepository.update(periode);
+            var periode = new Periode(
+                    mId,
+                    (Integer) tahun,
+                    Objects.equals(semester, Periode.sSEMESTER[1])
+            );
+
+            if (mId == null) {
+                return mRepository.add(periode);
+            } else {
+                return mRepository.update(periode);
+            }
+        } catch (Utils.ControllerException e) {
+            mView.showError(e.getMessage());
+            return false;
         }
     }
 }

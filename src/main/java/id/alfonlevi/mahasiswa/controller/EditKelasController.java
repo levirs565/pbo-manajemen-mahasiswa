@@ -44,24 +44,23 @@ public class EditKelasController {
     }
 
     public boolean submit(String nama) {
-        if (nama.isBlank()) {
-            mView.showError("Nama tidak boleh kosong");
+        try {
+            Utils.ensureNotBlank("Nama", nama);
+            Utils.ensureNotBlank("Dosen", mDosenModel.getSelectedItem());
+            var data = new Kelas(
+                    mId,
+                    nama,
+                    mMataKuliahId,
+                    ((Dosen) mDosenModel.getSelectedItem()).getUsername()
+            );
+            if (mId == null) {
+                return mRepository.add(data);
+            } else {
+                return mRepository.update(data);
+            }
+        } catch (Utils.ControllerException e) {
+            mView.showError(e.getMessage());
             return false;
-        }
-        if (mDosenModel.getSelectedItem() == null) {
-            mView.showError("Dosen tidak boleh kosong");
-            return false;
-        }
-        var data = new Kelas(
-                mId,
-                nama,
-                mMataKuliahId,
-                ((Dosen) mDosenModel.getSelectedItem()).getUsername()
-        );
-        if (mId == null) {
-            return mRepository.add(data);
-        } else {
-            return mRepository.update(data);
         }
     }
 }

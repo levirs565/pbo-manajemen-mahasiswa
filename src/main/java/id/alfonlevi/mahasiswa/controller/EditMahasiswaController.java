@@ -32,28 +32,23 @@ public class EditMahasiswaController {
     }
 
     public boolean submit(String nim, String nama) {
-        if (nim.isBlank()) {
-            mView.showError("NIM tidak boleh kosong");
+        try {
+            Utils.ensureNotBlank("NIM", nim);
+
+            if (nim.length() > 10)
+                throw new Utils.ControllerException("NIM tidak boleh lebih dari 10 karakter");
+            Utils.ensureNotBlank("Nama", nama);
+
+            if (!mIsEdit && this.mRepository.get(nim) != null)
+                throw new Utils.ControllerException("NIM sudah digunakan");
+
+
+            var mahasiswa = new Mahasiswa(nim, nama);
+            if (!mIsEdit) return this.mRepository.add(mahasiswa);
+            else return this.mRepository.update(mahasiswa);
+        } catch (Utils.ControllerException e) {
+            mView.showError(e.getMessage());
             return false;
         }
-
-        if (nim.length() > 10) {
-            mView.showError("NIM tidak boleh lebih dari 10 karakter");
-            return false;
-        }
-
-        if (nama.isBlank()) {
-            mView.showError("Nama tidak boleh kosong");
-            return false;
-        }
-
-        if (!mIsEdit && this.mRepository.get(nim) != null) {
-            mView.showError("NIM sudah digunakan");
-            return false;
-        }
-
-        var mahasiswa = new Mahasiswa(nim, nama);
-        if (!mIsEdit) return this.mRepository.add(mahasiswa);
-        else return this.mRepository.update(mahasiswa);
     }
 }
