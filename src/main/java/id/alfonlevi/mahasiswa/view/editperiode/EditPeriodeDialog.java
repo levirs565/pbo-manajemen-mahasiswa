@@ -48,9 +48,10 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
     public void setData(Periode periode, boolean isNew) {
         if (isNew) {
             mActionButton.setText("Tambah");
+            setTitle("Tambah Periode");
         } else {
             mActionButton.setText("Ubah");
-
+            setTitle("Ubah Periode");
             mTahunComboBox.setSelectedItem(periode.getTahun());
             mSemesterComboBox.setSelectedItem(periode.getSemester());
         }
@@ -66,6 +67,11 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
     public void setSemesterModel(ComboBoxModel<String> model) {
         mSemesterComboBox.setModel(model);
         mSemesterComboBox.setSelectedIndex(-1);
+    }
+
+    @Override
+    public void showError(String error) {
+        mErrorLabel.setText(error);
     }
 
     /**
@@ -86,6 +92,7 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
         mActionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mTahunLabel.setText("Tahun");
@@ -142,10 +149,7 @@ public class EditPeriodeDialog extends javax.swing.JDialog implements EditPeriod
     }// </editor-fold>//GEN-END:initComponents
 
     private void mActionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionButtonActionPerformed
-       if (mController.submit(
-               (Integer) mTahunComboBox.getSelectedItem(),
-               (String) mSemesterComboBox.getSelectedItem()
-       )) {
+       if (mController.submit()) {
            dispose();
        }
     }//GEN-LAST:event_mActionButtonActionPerformed

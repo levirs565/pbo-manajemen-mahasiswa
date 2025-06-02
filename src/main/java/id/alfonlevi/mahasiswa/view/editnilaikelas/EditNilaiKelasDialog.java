@@ -5,6 +5,8 @@
 package id.alfonlevi.mahasiswa.view.editnilaikelas;
 
 import id.alfonlevi.mahasiswa.controller.EditNilaiKelasController;
+import javax.swing.JComponent;
+import javax.swing.border.EmptyBorder;
 
 import javax.swing.table.TableModel;
 
@@ -22,6 +24,8 @@ public class EditNilaiKelasDialog extends javax.swing.JDialog implements EditNil
         initComponents();
         setModal(true);
         mController = new EditNilaiKelasController(id, this);
+        
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override
@@ -43,6 +47,7 @@ public class EditNilaiKelasDialog extends javax.swing.JDialog implements EditNil
         mSaveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Nilai Kelas");
 
         mTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

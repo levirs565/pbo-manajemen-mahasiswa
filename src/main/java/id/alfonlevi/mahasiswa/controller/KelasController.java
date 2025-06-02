@@ -16,7 +16,12 @@ public class KelasController {
     private final DefaultTableModel mTableModel = new DefaultTableModel(
             new String[]{"NIM", "Nama"},
             0
-    );
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
     private final BaseRepository.Listener mKelasListener = () -> {
         refreshTitle();
         refreshMahasiswa();

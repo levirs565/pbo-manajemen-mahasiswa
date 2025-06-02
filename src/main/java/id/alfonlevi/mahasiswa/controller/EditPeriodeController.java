@@ -39,10 +39,20 @@ public class EditPeriodeController {
         }
     }
 
-    public boolean submit(int tahunAjaran, String semester) {
+    public boolean submit() {
+        var tahun = mTahunModel.getSelectedItem();
+        var semester = mSemesterModel.getSelectedItem();
+        if (tahun == null) {
+            mView.showError("Tahun belum dipilih");
+            return false;
+        }
+        if (semester == null) {
+            mView.showError("Semester belum dipilih");
+            return false;
+        }
         var periode = new Periode(
                 mId,
-                tahunAjaran,
+                (Integer) tahun,
                 Objects.equals(semester, Periode.sSEMESTER[1])
         );
 

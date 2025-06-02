@@ -10,38 +10,36 @@ import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 import id.alfonlevi.mahasiswa.view.editperiode.EditPeriodeDialog;
 
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author levir
  */
-public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
+public class PeriodeDialog extends javax.swing.JDialog implements PeriodeView {
     private final PeriodeController mController;
 
     /**
      * Creates new form PeriodeFrame
      */
-    public PeriodeFrame() {
+    public PeriodeDialog() {
         initComponents();
         mList.setCellRenderer(new PeriodeListCellRenderer());
-
+        setModal(true);
         mController = new PeriodeController(this);
+
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override
-    public void setListModel(ListModel<Periode> listModel) {
+    public void setListModel(ListModel<Periode> listModel, ListSelectionModel selectionModel) {
         mList.setModel(listModel);
+        mList.setSelectionModel(selectionModel);
     }
 
-    private String getSelectedId() {
-        var selected = mList.getSelectedValue();
-        if (selected == null) {
-            JOptionPane.showMessageDialog(this, "Tidak ada yang dipilih", "Error", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-
-        return selected.getId();
+    @Override
+    public void showError(String error) {
+        JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
@@ -61,22 +59,19 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         mList = new javax.swing.JList<>();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0));
         jPanel1 = new javax.swing.JPanel();
         mAddButton = new javax.swing.JButton();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         mEditButton = new javax.swing.JButton();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         mDeleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manajemen Periode");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
         jScrollPane1.setAlignmentY(0.0F);
         jScrollPane1.setViewportView(mList);
 
         getContentPane().add(jScrollPane1);
-        getContentPane().add(filler1);
 
         jPanel1.setAlignmentY(0.0F);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
@@ -88,7 +83,6 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
             }
         });
         jPanel1.add(mAddButton);
-        jPanel1.add(filler2);
 
         mEditButton.setText("Ubah");
         mEditButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +91,6 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
             }
         });
         jPanel1.add(mEditButton);
-        jPanel1.add(filler3);
 
         mDeleteButton.setText("Hapus");
         mDeleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,21 +111,16 @@ public class PeriodeFrame extends javax.swing.JFrame implements PeriodeView {
     }//GEN-LAST:event_mAddButtonActionPerformed
 
     private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
-        var id = getSelectedId();
+        var id = mController.getSelectedId();
         if (id == null) return;
         new EditPeriodeDialog(id).setVisible(true);
     }//GEN-LAST:event_mEditButtonActionPerformed
 
     private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed
-        var id = getSelectedId();
-        if (id == null) return;
-        mController.delete(id);
+        mController.deleteSelected();
     }//GEN-LAST:event_mDeleteButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mAddButton;

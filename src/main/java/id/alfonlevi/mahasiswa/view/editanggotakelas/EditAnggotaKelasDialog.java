@@ -5,6 +5,8 @@
 package id.alfonlevi.mahasiswa.view.editanggotakelas;
 
 import id.alfonlevi.mahasiswa.controller.EditAnggotaKelasController;
+import javax.swing.JComponent;
+import javax.swing.border.EmptyBorder;
 
 import javax.swing.table.TableModel;
 
@@ -24,6 +26,8 @@ public class EditAnggotaKelasDialog extends javax.swing.JDialog implements  Edit
         setModal(true);
 
         mController = new EditAnggotaKelasController(id, this);
+        
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override
@@ -49,6 +53,7 @@ public class EditAnggotaKelasDialog extends javax.swing.JDialog implements  Edit
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ubah Anggota Kelas");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jScrollPane1.setAlignmentX(0.0F);

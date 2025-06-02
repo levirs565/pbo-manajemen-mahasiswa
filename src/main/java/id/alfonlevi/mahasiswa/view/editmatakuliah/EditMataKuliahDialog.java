@@ -6,6 +6,8 @@ package id.alfonlevi.mahasiswa.view.editmatakuliah;
 
 import id.alfonlevi.mahasiswa.controller.EditMataKuliahController;
 import id.alfonlevi.mahasiswa.data.model.MataKuliah;
+import javax.swing.JComponent;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -23,6 +25,8 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
         setModal(true);
 
         mController = new EditMataKuliahController(this, id, periodeId);
+        
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     public EditMataKuliahController getController() {
@@ -42,6 +46,10 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
         }
     }
 
+    @Override
+    public void showError(String error) {
+        mErrorLabel.setText(error);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +67,7 @@ public class EditMataKuliahDialog extends javax.swing.JDialog implements EditMat
         mActionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mNamaLabel.setText("Nama");

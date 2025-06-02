@@ -10,6 +10,7 @@ import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.editanggotakelas.EditAnggotaKelasDialog;
 import id.alfonlevi.mahasiswa.view.editkelas.EditKelasDialog;
 
+import javax.swing.*;
 import javax.swing.table.TableModel;
 
 /**
@@ -28,7 +29,6 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         mTitleLabel.putClientProperty(FlatClientProperties.STYLE_CLASS, "h2");
         
         mController = new KelasController(this, id);
-        
     }
 
     @Override
@@ -67,6 +67,7 @@ public class KelasPanel extends javax.swing.JPanel implements KelasView, Disposa
         jPanel2 = new javax.swing.JPanel();
         mEditAnggota = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setForeground(new java.awt.Color(255, 0, 0));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 

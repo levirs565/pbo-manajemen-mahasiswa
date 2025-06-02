@@ -10,6 +10,7 @@ import id.alfonlevi.mahasiswa.data.model.Kelas;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * @author levir
@@ -35,16 +36,25 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
                 return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             }
         });
+        
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override
     public void showData(boolean isNew, Kelas kelas) {
         if (isNew) {
             setTitle("Buat Kelas");
+            mActionButton.setText("Tambah");
         } else {
             setTitle("Ubah Kelas");
+            mActionButton.setText("Ubah");
             mNamaField.setText(kelas.getNama());
         }
+    }
+
+    @Override
+    public void showError(String error) {
+        mErrorLabel.setText(error);
     }
 
     @Override
@@ -73,6 +83,7 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mNamaLabel.setText("Nama");
@@ -124,7 +135,7 @@ public class EditKelasDialog extends javax.swing.JDialog implements EditKelasVie
         gridBagConstraints.gridy = 1;
         getContentPane().add(mDosenLabel, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(414, 118));
+        setSize(new java.awt.Dimension(414, 158));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

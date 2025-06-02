@@ -11,6 +11,7 @@ import id.alfonlevi.mahasiswa.view.maindosen.MainDosenFrame;
 import id.alfonlevi.mahasiswa.view.nilaimahasiswa.NilaiMahasiswaFrame;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * @author LENOVO
@@ -24,6 +25,8 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
     public LoginFrame() {
         initComponents();
         mController = new LoginController(this);
+        
+        ((JComponent)getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override
@@ -50,6 +53,8 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         mLihatNilaiButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mUsernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -68,11 +73,13 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         mUsernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mUsernameLabel, gridBagConstraints);
 
         mPasswordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mPasswordLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;

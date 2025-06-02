@@ -5,5 +5,6 @@ import id.alfonlevi.mahasiswa.data.model.Periode;
 import javax.swing.*;
 
 public interface PeriodeView {
-    void setListModel(ListModel<Periode> listModel);
+    void setListModel(ListModel<Periode> listModel, ListSelectionModel selectionModel);
+    void showError(String error);
 }

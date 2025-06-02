@@ -13,7 +13,7 @@ import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahPanel;
-import id.alfonlevi.mahasiswa.view.periode.PeriodeFrame;
+import id.alfonlevi.mahasiswa.view.periode.PeriodeDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +53,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
 
         var periodeEditButton = new JButton("...");
         periodeEditButton.addActionListener((v) -> {
-            new PeriodeFrame().setVisible(true);
+            new PeriodeDialog().setVisible(true);
         });
         periodeBox.add(periodeEditButton);
 
@@ -80,9 +80,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
         mController = new MataKuliahListController(this);
 
         mPeriodeComboBox.addActionListener((v) -> {
-            var selected = mPeriodeComboBox.getSelectedItem();
-            var id = (selected instanceof  Periode) ? ((Periode) selected).getId() : null;
-            mController.setSelectedPeriode(id);
+            mController.refresh();
         });
         mPeriodeComboBox.setSelectedIndex(-1);
     }
@@ -104,11 +102,8 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
     }
 
     @Override
-    public void setPeriodeList(List<Periode> periodeList) {
-        mPeriodeComboBox.removeAllItems();
-        for (var periode : periodeList) {
-            mPeriodeComboBox.addItem(periode);
-        }
+    public void setPeriodeModel(ComboBoxModel<Periode> model) {
+        mPeriodeComboBox.setModel(model);
     }
 
     @Override

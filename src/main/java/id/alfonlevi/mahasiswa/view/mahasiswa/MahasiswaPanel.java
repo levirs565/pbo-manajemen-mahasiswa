@@ -4,10 +4,12 @@
  */
 package id.alfonlevi.mahasiswa.view.mahasiswa;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.MahasiswaController;
 import id.alfonlevi.mahasiswa.view.base.DisposableView;
-import id.alfonlevi.mahasiswa.view.editmahasiswa.EditMahasiswaFrame;
-import javax.swing.JOptionPane;
+import id.alfonlevi.mahasiswa.view.editmahasiswa.EditMahasiswaDialog;
+
+import javax.swing.*;
 import javax.swing.table.TableModel;
 
 /**
@@ -23,22 +25,19 @@ public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView,
     public MahasiswaPanel() {
         initComponents();
         mController = new MahasiswaController(this);
+        
+        mTItleLabel.putClientProperty(FlatClientProperties.STYLE_CLASS, "h2");
     }
 
     @Override
-    public void setTableModel(TableModel model) {
+    public void setTableModel(TableModel model, ListSelectionModel selectionModel) {
         mTable.setModel(model);
-    } 
-    
-    private String getSelectedNim() {
-        var selected = mTable.getSelectedRow();
-        
-        if (selected == -1) {
-            JOptionPane.showMessageDialog(this, "Tidak ada yang dipilih", "Error", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-        
-        return (String) mTable.getModel().getValueAt(selected, 0);
+        mTable.setSelectionModel(selectionModel);
+    }
+
+    @Override
+    public void showError(String error) {
+        JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
@@ -61,8 +60,9 @@ public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView,
         mAddButton = new javax.swing.JButton();
         mEditButton = new javax.swing.JButton();
         mDeleteButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        mTItleLabel = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setLayout(new java.awt.GridBagLayout());
 
         mTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -119,40 +119,37 @@ public class MahasiswaPanel extends javax.swing.JPanel implements MahasiswaView,
         gridBagConstraints.gridy = 3;
         add(mDeleteButton, gridBagConstraints);
 
-        jLabel1.setText("Siswa");
+        mTItleLabel.setText("Mahasiswa");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        add(jLabel1, gridBagConstraints);
+        add(mTItleLabel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAddButtonActionPerformed
-        new EditMahasiswaFrame(null).setVisible(true);
+        new EditMahasiswaDialog(null).setVisible(true);
     }//GEN-LAST:event_mAddButtonActionPerformed
 
     private void mEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEditButtonActionPerformed
-        var nim = getSelectedNim();
+        var nim = mController.getSelectedNim();
         if (nim == null) return;
         
-        new EditMahasiswaFrame(nim).setVisible(true);
+        new EditMahasiswaDialog(nim).setVisible(true);
     }//GEN-LAST:event_mEditButtonActionPerformed
 
     private void mDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDeleteButtonActionPerformed
-        var nim = getSelectedNim();
-        if (nim == null) return;
-        
-        mController.delete(nim);
+        mController.deleteSelected();
     }//GEN-LAST:event_mDeleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mAddButton;
     private javax.swing.JButton mDeleteButton;
     private javax.swing.JButton mEditButton;
+    private javax.swing.JLabel mTItleLabel;
     private javax.swing.JTable mTable;
     // End of variables declaration//GEN-END:variables
 }

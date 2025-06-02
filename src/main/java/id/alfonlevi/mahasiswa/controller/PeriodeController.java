@@ -12,6 +12,7 @@ public class PeriodeController {
     private final PeriodeRepository mRepository;
     private final PeriodeView mView;
     private final DefaultListModel<Periode> mListModel = new DefaultListModel<>();
+    private final DefaultListSelectionModel mListSelectionModel = new DefaultListSelectionModel();
 
     private final BaseRepository.Listener mRepositoryListener = () -> {
         refresh();
@@ -21,7 +22,7 @@ public class PeriodeController {
         mView = view;
         mRepository = RepositoryProvider.get().getPeriodeRepository();
 
-        mView.setListModel(mListModel);
+        mView.setListModel(mListModel, mListSelectionModel);
 
         refresh();
         mRepository.registerListener(mRepositoryListener);
@@ -33,8 +34,19 @@ public class PeriodeController {
         mListModel.addAll(data);
     }
 
-    public boolean delete(String id) {
-        return mRepository.delete(id);
+    public String getSelectedId() {
+        var selected = mListSelectionModel.getMinSelectionIndex();
+        if (selected == -1) {
+            return null;
+        }
+
+        return mListModel.get(selected).getId();
+    }
+
+    public boolean deleteSelected() {
+        var selected = getSelectedId();
+        if (selected == null) return false;
+        return mRepository.delete(selected);
     }
 
     public void dispose() {

@@ -8,6 +8,8 @@ import id.alfonlevi.mahasiswa.data.RepositoryProvider;
 import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.MahasiswaRepository;
 import id.alfonlevi.mahasiswa.view.mahasiswa.MahasiswaView;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +23,13 @@ public class MahasiswaController {
     private final DefaultTableModel mModel = new DefaultTableModel(
         new String[]{"NIM", "Nama"},
         0
-    );
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    private final DefaultListSelectionModel mSelectionModel = new DefaultListSelectionModel();
     private final BaseRepository.Listener mListener = () -> {
         refresh();
     };
@@ -30,12 +38,12 @@ public class MahasiswaController {
         this.mView = view;
         this.mRepository = RepositoryProvider.get().getMahasiswaRepository();
         
-        mView.setTableModel(mModel);
+        mView.setTableModel(mModel, mSelectionModel);
         refresh();
         
         mRepository.registerListener(mListener);
     }
-    
+
     private void refresh() {
         mModel.setRowCount(0);
         
@@ -44,8 +52,20 @@ public class MahasiswaController {
             mModel.addRow(new Object[]{data.getNim(), data.getNama()});
         }
     }
+
+    public String getSelectedNim() {
+        var selectionIndex = mSelectionModel.getMinSelectionIndex();
+        if (selectionIndex == -1) {
+            mView.showError("Belum ada yang dipilih");
+            return null;
+        }
+
+        return mModel.getValueAt(selectionIndex, 0).toString();
+    }
     
-    public void delete(String nim) {
+    public void deleteSelected() {
+        var nim = getSelectedNim();
+        if (nim == null) return;
         mRepository.delete(nim);
     }
 

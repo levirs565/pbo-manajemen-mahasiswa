@@ -8,4 +8,5 @@ import javax.swing.*;
 public interface EditKelasView {
     void setDosenComboboxModel(ComboBoxModel<Dosen> model);
     void showData(boolean isNew, Kelas kelas);
+    void showError(String error);
 }

@@ -20,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         
-        mTabPane.add("Siswa", new MahasiswaPanel());
+        mTabPane.add("Mahasiswa", new MahasiswaPanel());
         mTabPane.add("Dosen", new DosenPanel());
         mTabPane.add("Mata Kuliah", new MataKuliahListPanel());
     }
@@ -37,6 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         mTabPane = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
         mTabPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);

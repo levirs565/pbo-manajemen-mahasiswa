@@ -68,6 +68,7 @@ public class KelasDosenPanel extends javax.swing.JPanel implements KelasDosenVie
         jPanel2 = new javax.swing.JPanel();
         mEditAnggota = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setForeground(new java.awt.Color(255, 0, 0));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 

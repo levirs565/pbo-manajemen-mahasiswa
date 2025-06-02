@@ -12,4 +12,5 @@ import id.alfonlevi.mahasiswa.data.model.MataKuliah;
  */
 public interface EditMataKuliahView {
     void showData(boolean isNew, MataKuliah mahasiswa);
+    void showError(String error);
 }

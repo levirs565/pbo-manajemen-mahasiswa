@@ -31,6 +31,10 @@ public class EditMataKuliahController {
     }
 
     public boolean submit(String nama) {
+        if (nama.isBlank()) {
+            mView.showError("Nama tidak boleh kosong");
+            return false;
+        }
         var mataKuliah = new MataKuliah(mId, mPeriodeId, nama);
         if (mId == null) {
             return mRepository.add(mataKuliah);

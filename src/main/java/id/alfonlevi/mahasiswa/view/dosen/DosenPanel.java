@@ -4,13 +4,12 @@
  */
 package id.alfonlevi.mahasiswa.view.dosen;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import id.alfonlevi.mahasiswa.controller.DosenController;
 import id.alfonlevi.mahasiswa.view.base.DisposableView;
 import id.alfonlevi.mahasiswa.view.editdosen.EditDosenDialog;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
 /**
@@ -26,12 +25,7 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
         initComponents();
         mController = new DosenController(this);
 
-        mTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                mController.updateSelected(e.getFirstIndex());
-            }
-        });
+        mTitleLabel.putClientProperty(FlatClientProperties.STYLE_CLASS, "h2");
     }
 
     @Override
@@ -40,8 +34,9 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
     }
 
     @Override
-    public void setTableModel(TableModel model) {
+    public void setTableModel(TableModel model, ListSelectionModel selectionModel) {
         mTable.setModel(model);
+        mTable.setSelectionModel(selectionModel);
     }
 
     @Override
@@ -58,17 +53,24 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mTitleLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         mTable = new javax.swing.JTable();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0));
         jPanel1 = new javax.swing.JPanel();
         mAddButton = new javax.swing.JButton();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         mEditButton = new javax.swing.JButton();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         mDeleteButton = new javax.swing.JButton();
 
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
+
+        mTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        mTitleLabel.setText("Dosen");
+        add(mTitleLabel);
+
+        jPanel2.setAlignmentX(0.0F);
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
 
         jScrollPane1.setAlignmentY(0.0F);
 
@@ -85,8 +87,7 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
         ));
         jScrollPane1.setViewportView(mTable);
 
-        add(jScrollPane1);
-        add(filler1);
+        jPanel2.add(jScrollPane1);
 
         jPanel1.setAlignmentY(0.0F);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
@@ -98,7 +99,6 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
             }
         });
         jPanel1.add(mAddButton);
-        jPanel1.add(filler2);
 
         mEditButton.setText("Ubah");
         mEditButton.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +107,6 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
             }
         });
         jPanel1.add(mEditButton);
-        jPanel1.add(filler3);
 
         mDeleteButton.setText("Hapus");
         mDeleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +116,9 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
         });
         jPanel1.add(mDeleteButton);
 
-        add(jPanel1);
+        jPanel2.add(jPanel1);
+
+        add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAddButtonActionPerformed
@@ -135,14 +136,13 @@ public class DosenPanel extends javax.swing.JPanel implements DosenView, Disposa
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mAddButton;
     private javax.swing.JButton mDeleteButton;
     private javax.swing.JButton mEditButton;
     private javax.swing.JTable mTable;
+    private javax.swing.JLabel mTitleLabel;
     // End of variables declaration//GEN-END:variables
 }

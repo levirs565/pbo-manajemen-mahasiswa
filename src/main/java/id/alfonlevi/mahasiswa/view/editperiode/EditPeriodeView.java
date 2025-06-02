@@ -9,4 +9,5 @@ public interface EditPeriodeView {
     void setData(Periode periode, boolean isNew);
     void setTahunModel(ComboBoxModel<Integer> model);
     void setSemesterModel(ComboBoxModel<String> model);
+    void showError(String error);
 }

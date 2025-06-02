@@ -6,8 +6,8 @@ import id.alfonlevi.mahasiswa.data.repository.BaseRepository;
 import id.alfonlevi.mahasiswa.data.repository.DosenRepository;
 import id.alfonlevi.mahasiswa.view.dosen.DosenView;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.util.List;
 
 public class DosenController {
@@ -17,8 +17,13 @@ public class DosenController {
     private final DefaultTableModel mTableModel = new DefaultTableModel(
             new String[]{"NIP", "Username", "Nama"},
             0
-    );
-    private String mSelectedUsername = null;
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    private final DefaultListSelectionModel mTableSelectionModel = new DefaultListSelectionModel();
 
     private BaseRepository.Listener mListener = () -> {
         refresh();
@@ -28,7 +33,7 @@ public class DosenController {
         mView = view;
         mRepository = RepositoryProvider.get().getDosenRepository();
 
-        mView.setTableModel(mTableModel);
+        mView.setTableModel(mTableModel, mTableSelectionModel);
 
         refresh();
         mRepository.registerListener(mListener);
@@ -41,23 +46,15 @@ public class DosenController {
         for (var dosen : mList) {
             mTableModel.addRow(new Object[]{dosen.getNip(), dosen.getUsername(), dosen.getNama()});
         }
-        mSelectedUsername = null;
-    }
-
-    public void updateSelected(int index) {
-        if (index == -1) {
-            mSelectedUsername = null;
-            return;
-        }
-        mSelectedUsername = mList.get(index).getUsername();
     }
 
     public String getSelectedUsername() {
-        if (mSelectedUsername == null) {
+        var selection = mTableSelectionModel.getMinSelectionIndex();
+        if (selection == -1) {
             mView.showError("Belum ada yang dipilih");
             return null;
         }
-        return mSelectedUsername;
+        return mList.get(selection).getUsername();
     }
 
     public void deleteSelected() {

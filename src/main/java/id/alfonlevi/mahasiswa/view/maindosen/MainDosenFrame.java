@@ -16,7 +16,7 @@ import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.editmatakuliah.EditMataKuliahDialog;
 import id.alfonlevi.mahasiswa.view.matakuliah.MataKuliahPanel;
-import id.alfonlevi.mahasiswa.view.periode.PeriodeFrame;
+import id.alfonlevi.mahasiswa.view.periode.PeriodeDialog;
 
 import javax.swing.*;
 import java.awt.*;

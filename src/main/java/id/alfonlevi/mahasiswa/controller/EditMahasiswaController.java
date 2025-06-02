@@ -31,12 +31,23 @@ public class EditMahasiswaController {
         }
     }
 
-    public boolean submit(Mahasiswa mahasiswa) {
-        if (!mIsEdit && this.mRepository.get(mahasiswa.getNim()) != null) {
+    public boolean submit(String nim, String nama) {
+        if (nim.isBlank()) {
+            mView.showError("NIM tidak boleh kosong");
+            return false;
+        }
+
+        if (nama.isBlank()) {
+            mView.showError("Nama tidak boleh kosong");
+            return false;
+        }
+
+        if (!mIsEdit && this.mRepository.get(nim) != null) {
             mView.showError("NIM sudah digunakan");
             return false;
         }
-        
+
+        var mahasiswa = new Mahasiswa(nim, nama);
         if (!mIsEdit) return this.mRepository.add(mahasiswa);
         else return this.mRepository.update(mahasiswa);
     }

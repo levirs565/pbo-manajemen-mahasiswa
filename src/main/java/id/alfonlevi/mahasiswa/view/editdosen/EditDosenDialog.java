@@ -63,6 +63,7 @@ public class EditDosenDialog extends javax.swing.JDialog implements EditDosenVie
         mActionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mNipLabel.setText("NIP");
@@ -145,7 +146,7 @@ public class EditDosenDialog extends javax.swing.JDialog implements EditDosenVie
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mActionButton, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(439, 308));
+        setSize(new java.awt.Dimension(439, 222));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

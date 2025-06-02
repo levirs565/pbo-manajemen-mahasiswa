@@ -9,6 +9,7 @@ import id.alfonlevi.mahasiswa.data.model.Periode;
 import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 /**
@@ -25,6 +26,8 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
         mPeriodeComboBox.setRenderer(new PeriodeListCellRenderer());
 
         mController = new NilaiMahasiswaController(this);
+        
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override
@@ -65,10 +68,13 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
         mErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lihat Nilai Mahasiswa");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mNimLabel.setText("NIM");
-        getContentPane().add(mNimLabel, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(mNimLabel, gridBagConstraints);
 
         mNimField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +89,7 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
         mNamaLabel.setText("Nama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mNamaLabel, gridBagConstraints);
 
         mNamaField.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +139,7 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mPeriodeLabel, gridBagConstraints);
 
         mShowButton.setText("Tampilkan");

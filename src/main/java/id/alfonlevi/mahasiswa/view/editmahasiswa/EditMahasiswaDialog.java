@@ -11,17 +11,18 @@ import id.alfonlevi.mahasiswa.data.model.Mahasiswa;
  *
  * @author levir
  */
-public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasiswaView {
+public class EditMahasiswaDialog extends javax.swing.JDialog implements EditMahasiswaView {
     private EditMahasiswaController mController;
     
     /**
      * Creates new form EditMahasiswaFrame
      */
-    public EditMahasiswaFrame(String id) {
+    public EditMahasiswaDialog(String id) {
         initComponents();
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         mController = new EditMahasiswaController(this, id);
+        setModal(true);
     }
 
     public EditMahasiswaController getController() {
@@ -33,11 +34,13 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         if (isNew) {
             mActionButton.setText("Tambah");
             mNimField.setEditable(true);
+            setTitle("Tambah Mahasiswa");
         } else {
             mActionButton.setText("Edit");
             mNimField.setText(mahasiswa.getNim());
             mNimField.setEditable(false);
             mNamaField.setText(mahasiswa.getNama());
+            setTitle("Ubah Mahasiswa");
         }
     }
 
@@ -64,7 +67,8 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
         mActionButton = new javax.swing.JButton();
         mErroLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mNimLabel.setText("NIM");
@@ -137,19 +141,7 @@ public class EditMahasiswaFrame extends javax.swing.JFrame implements EditMahasi
     }// </editor-fold>//GEN-END:initComponents
 
     private void mActionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionButtonActionPerformed
-        var mahasiswa = new Mahasiswa(mNimField.getText(), mNamaField.getText());
-        
-        if (mahasiswa.getNim().isBlank()) {
-            showError("NIM tidak boleh kosong");
-            return;
-        }
-        
-        if (mahasiswa.getNama().isBlank()) {
-            showError("Nama tidak boleh kosong");
-            return;
-        }
-        
-        if (mController.submit(mahasiswa)) {
+        if (mController.submit(mNimField.getText(), mNamaField.getText())) {
             dispose();
         }
     }//GEN-LAST:event_mActionButtonActionPerformed

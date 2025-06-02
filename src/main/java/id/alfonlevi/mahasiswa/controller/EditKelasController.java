@@ -44,6 +44,14 @@ public class EditKelasController {
     }
 
     public boolean submit(String nama) {
+        if (nama.isBlank()) {
+            mView.showError("Nama tidak boleh kosong");
+            return false;
+        }
+        if (mDosenModel.getSelectedItem() == null) {
+            mView.showError("Dosen tidak boleh kosong");
+            return false;
+        }
         var data = new Kelas(
                 mId,
                 nama,
