@@ -59,6 +59,6 @@ public class KelasDosenController {
     }
 
     public void dispose() {
-        mKelasRepository.registerListener(mKelasListener);
+        mKelasRepository.unregisterListener(mKelasListener);
     }
 }

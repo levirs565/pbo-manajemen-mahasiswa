@@ -37,6 +37,11 @@ public class EditMahasiswaController {
             return false;
         }
 
+        if (nim.length() > 10) {
+            mView.showError("NIM tidak boleh lebih dari 10 karakter");
+            return false;
+        }
+
         if (nama.isBlank()) {
             mView.showError("Nama tidak boleh kosong");
             return false;
