@@ -5,29 +5,49 @@
 package id.alfonlevi.mahasiswa.view.main;
 
 import id.alfonlevi.mahasiswa.view.base.MenuHelper;
+import id.alfonlevi.mahasiswa.view.base.TabbedPaneHelper;
 import id.alfonlevi.mahasiswa.view.dosen.DosenPanel;
 import id.alfonlevi.mahasiswa.view.mahasiswa.MahasiswaPanel;
 import id.alfonlevi.mahasiswa.view.matakuliahlist.MataKuliahListPanel;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
- *
  * @author levir
  */
 public class MainFrame extends javax.swing.JFrame {
+    private TabbedPaneHelper mTabbedPaneHelper;
 
     /**
      * Creates new form MainView
      */
     public MainFrame() {
         initComponents();
-        
-        mTabPane.add("Mahasiswa", new MahasiswaPanel());
-        mTabPane.add("Dosen", new DosenPanel());
-        mTabPane.add("Mata Kuliah", new MataKuliahListPanel());
+
+        mTabbedPaneHelper = new TabbedPaneHelper(mTabPane,
+                id -> {
+                    if (Objects.equals(id, "0")) return new MahasiswaPanel();
+                    if (Objects.equals(id, "1")) return new DosenPanel();
+                    if (Objects.equals(id, "2")) return new MataKuliahListPanel();
+                    return null;
+                }
+        );
+        mTabbedPaneHelper.setItems(List.of(
+                new TabbedPaneHelper.Item("0", "Mahasiswa"),
+                new TabbedPaneHelper.Item("1", "Dosen"),
+                new TabbedPaneHelper.Item("2", "Matakuliah")
+        ));
 
         MenuHelper.applyMenu(this, true);
     }
-    
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        mTabbedPaneHelper.dispose();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
