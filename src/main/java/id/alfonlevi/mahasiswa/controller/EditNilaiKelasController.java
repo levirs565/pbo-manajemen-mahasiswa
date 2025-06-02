@@ -55,7 +55,11 @@ public class EditNilaiKelasController {
     public boolean submit() {
         var nilai = new HashMap<String, Integer>();
         for (int row = 0; row < mTableModel.getRowCount(); row++) {
-            nilai.put(mTableModel.getValueAt(row, 0).toString(), (Integer) mTableModel.getValueAt(row, 2));
+            var value =  (Integer) mTableModel.getValueAt(row, 2);
+            if (value == null) {
+                value = 0;
+            }
+            nilai.put(mTableModel.getValueAt(row, 0).toString(), value);
         }
 
         return mKelasRepository.updateNilaiKelas(mId, nilai);
