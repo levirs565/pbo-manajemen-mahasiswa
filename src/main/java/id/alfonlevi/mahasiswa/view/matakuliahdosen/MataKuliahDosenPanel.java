@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author levir
  */
-public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuliahDosenView {
+public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuliahDosenView, DisposableView {
     private JLabel mNameLabel = new JLabel("Nama");
     private JLabel mEmptyLabel =  new JLabel("Belum ada mata kelas", SwingConstants.CENTER);
     private MataKuliahDosenController mController;
@@ -82,6 +82,11 @@ public class MataKuliahDosenPanel extends javax.swing.JPanel implements MataKuli
             }
         }
         mTabbedPaneHelper.setItems(items);
+    }
+
+    @Override
+    public void dispose() {
+        mTabbedPaneHelper.dispose();
     }
 
     /**

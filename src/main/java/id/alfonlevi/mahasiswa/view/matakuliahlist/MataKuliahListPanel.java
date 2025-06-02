@@ -109,6 +109,7 @@ public class MataKuliahListPanel extends javax.swing.JPanel implements MataKulia
     @Override
     public void dispose() {
         mController.dispose();
+        mTabbedPaneHelper.dispose();
     }
 
     /**

@@ -44,6 +44,10 @@ public class TabbedPaneHelper {
         }
     }
 
+    public void dispose() {
+        setItems(List.of());
+    }
+
     public record Item(String id, String title) {}
 
     public interface Adapter {

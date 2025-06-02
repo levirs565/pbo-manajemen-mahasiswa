@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author levir
  */
-public class MainDosenFrame extends javax.swing.JFrame implements MainDosenView, DisposableView {
+public class MainDosenFrame extends javax.swing.JFrame implements MainDosenView {
     private JLabel mEmptyLabel = new JLabel("Belum ada mata kuliah", SwingConstants.CENTER);
     private JLabel mPeriodeEmptyLabel = new JLabel("Belum Memilih Periode", SwingConstants.CENTER);
     private TabbedPaneHelper mTabbedPaneHelper;
@@ -92,6 +92,12 @@ public class MainDosenFrame extends javax.swing.JFrame implements MainDosenView,
     @Override
     public void setPeriodeModel(ComboBoxModel<Periode> model) {
         mPeriodeComboBox.setModel(model);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        mTabbedPaneHelper.dispose();
     }
 
     /**
