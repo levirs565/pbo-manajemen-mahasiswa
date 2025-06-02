@@ -50,10 +50,10 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         mUsernameField = new javax.swing.JTextField();
         mUsernameLabel = new javax.swing.JLabel();
         mPasswordLabel = new javax.swing.JLabel();
-        mPasswordField = new javax.swing.JTextField();
         mErrorLabel = new javax.swing.JLabel();
         mLoginButton = new javax.swing.JButton();
         mLihatNilaiButton = new javax.swing.JButton();
+        mPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -84,11 +84,6 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mPasswordLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
-        getContentPane().add(mPasswordField, gridBagConstraints);
 
         mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         mErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -123,6 +118,13 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         getContentPane().add(mLihatNilaiButton, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
+        getContentPane().add(mPasswordField, gridBagConstraints);
 
         setSize(new java.awt.Dimension(414, 191));
         setLocationRelativeTo(null);
@@ -149,7 +151,7 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JButton mLihatNilaiButton;
     private javax.swing.JButton mLoginButton;
-    private javax.swing.JTextField mPasswordField;
+    private javax.swing.JPasswordField mPasswordField;
     private javax.swing.JLabel mPasswordLabel;
     private javax.swing.JTextField mUsernameField;
     private javax.swing.JLabel mUsernameLabel;

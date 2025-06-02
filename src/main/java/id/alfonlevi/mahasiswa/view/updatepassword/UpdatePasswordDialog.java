@@ -43,13 +43,13 @@ public class UpdatePasswordDialog extends javax.swing.JDialog implements UpdateP
         java.awt.GridBagConstraints gridBagConstraints;
 
         mPasswordLamaLabel = new javax.swing.JLabel();
-        mPasswordLamaTextField = new javax.swing.JTextField();
         mPasswordBaruLabel = new javax.swing.JLabel();
-        mPasswordBaruTextField = new javax.swing.JTextField();
         mKonfirmasiPasswordBaruLabel = new javax.swing.JLabel();
-        mLabelPasswordBaruTextField = new javax.swing.JTextField();
         mActionButton = new javax.swing.JButton();
         mErrorLabel = new javax.swing.JLabel();
+        mPasswordLamaTextField = new javax.swing.JPasswordField();
+        mPasswordBaruTextField = new javax.swing.JPasswordField();
+        mLabelPasswordBaruTextField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Password");
@@ -60,32 +60,18 @@ public class UpdatePasswordDialog extends javax.swing.JDialog implements UpdateP
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mPasswordLamaLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        getContentPane().add(mPasswordLamaTextField, gridBagConstraints);
 
         mPasswordBaruLabel.setText("Password Baru");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mPasswordBaruLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.1;
-        getContentPane().add(mPasswordBaruTextField, gridBagConstraints);
 
         mKonfirmasiPasswordBaruLabel.setText("Konfirmasi Password Baru");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mKonfirmasiPasswordBaruLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        getContentPane().add(mLabelPasswordBaruTextField, gridBagConstraints);
 
         mActionButton.setText("Ubah");
         mActionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +94,30 @@ public class UpdatePasswordDialog extends javax.swing.JDialog implements UpdateP
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(mErrorLabel, gridBagConstraints);
 
+        mPasswordLamaTextField.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        getContentPane().add(mPasswordLamaTextField, gridBagConstraints);
+
+        mPasswordBaruTextField.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        getContentPane().add(mPasswordBaruTextField, gridBagConstraints);
+
+        mLabelPasswordBaruTextField.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        getContentPane().add(mLabelPasswordBaruTextField, gridBagConstraints);
+
         setSize(new java.awt.Dimension(414, 187));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -121,10 +131,10 @@ public class UpdatePasswordDialog extends javax.swing.JDialog implements UpdateP
     private javax.swing.JButton mActionButton;
     private javax.swing.JLabel mErrorLabel;
     private javax.swing.JLabel mKonfirmasiPasswordBaruLabel;
-    private javax.swing.JTextField mLabelPasswordBaruTextField;
+    private javax.swing.JPasswordField mLabelPasswordBaruTextField;
     private javax.swing.JLabel mPasswordBaruLabel;
-    private javax.swing.JTextField mPasswordBaruTextField;
+    private javax.swing.JPasswordField mPasswordBaruTextField;
     private javax.swing.JLabel mPasswordLamaLabel;
-    private javax.swing.JTextField mPasswordLamaTextField;
+    private javax.swing.JPasswordField mPasswordLamaTextField;
     // End of variables declaration//GEN-END:variables
 }
