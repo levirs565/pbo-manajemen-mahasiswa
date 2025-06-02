@@ -19,9 +19,9 @@ public class AkunDataSource extends BaseDataSource implements AkunRepository {
 
     private Akun fromResultSet(ResultSet resultSet) throws SQLException {
         return new Akun(
-            resultSet.getString("username"),
-            resultSet.getString("password"),
-            Role.valueOf(resultSet.getString("role")) // Enum.fromString
+                resultSet.getString("username"),
+                resultSet.getString("password"),
+                Role.valueOf(resultSet.getString("role")) // Enum.fromString
         );
     }
 
@@ -41,7 +41,18 @@ public class AkunDataSource extends BaseDataSource implements AkunRepository {
         }
     }
 
-    
+    @Override
+    public boolean updatePassword(String username, String password) {
+        try (var statement = mConnection.prepareStatement("UPDATE Akun SET password = ? WHERE username = ?")) {
+            statement.setString(1, password);
+            statement.setString(2, username);
+
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean add(Akun akun) {
         try (var statement = mConnection.prepareStatement("INSERT INTO Akun(username, password, role) VALUES (?, ?, ?)")) {
             statement.setString(1, akun.getUsername());

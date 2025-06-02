@@ -4,6 +4,7 @@
  */
 package id.alfonlevi.mahasiswa.view.main;
 
+import id.alfonlevi.mahasiswa.view.base.MenuHelper;
 import id.alfonlevi.mahasiswa.view.dosen.DosenPanel;
 import id.alfonlevi.mahasiswa.view.mahasiswa.MahasiswaPanel;
 import id.alfonlevi.mahasiswa.view.matakuliahlist.MataKuliahListPanel;
@@ -23,6 +24,8 @@ public class MainFrame extends javax.swing.JFrame {
         mTabPane.add("Mahasiswa", new MahasiswaPanel());
         mTabPane.add("Dosen", new DosenPanel());
         mTabPane.add("Mata Kuliah", new MataKuliahListPanel());
+
+        MenuHelper.applyMenu(this, true);
     }
     
     /**

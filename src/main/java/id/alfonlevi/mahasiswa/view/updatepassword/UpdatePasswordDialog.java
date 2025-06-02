@@ -2,20 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package id.alfonlevi.mahasiswa.view.updatedpassword;
+package id.alfonlevi.mahasiswa.view.updatepassword;
+
+import id.alfonlevi.mahasiswa.controller.UpdatePasswordController;
+
+import javax.swing.JComponent;
+import javax.swing.border.EmptyBorder;
 
 /**
- *
  * @author LENOVO
  */
-public class UpdatedPasswordDialog extends javax.swing.JDialog {
+public class UpdatePasswordDialog extends javax.swing.JDialog implements UpdatePasswordView {
+    private UpdatePasswordController mController;
 
     /**
      * Creates new form UpdatedPasswordDialog
      */
-    public UpdatedPasswordDialog() {
+    public UpdatePasswordDialog() {
         initComponents();
         setModal(true);
+
+        mController = new UpdatePasswordController(this);
+
+        ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
+    }
+
+    @Override
+    public void setError(String error) {
+        mErrorLabel.setText(error);
     }
 
     /**
@@ -38,10 +52,14 @@ public class UpdatedPasswordDialog extends javax.swing.JDialog {
         mErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Update Password");
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         mPasswordLamaLabel.setText("Password Lama");
-        getContentPane().add(mPasswordLamaLabel, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(mPasswordLamaLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
@@ -50,6 +68,7 @@ public class UpdatedPasswordDialog extends javax.swing.JDialog {
         mPasswordBaruLabel.setText("Password Baru");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mPasswordBaruLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -60,6 +79,7 @@ public class UpdatedPasswordDialog extends javax.swing.JDialog {
         mKonfirmasiPasswordBaruLabel.setText("Konfirmasi Password Baru");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(mKonfirmasiPasswordBaruLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -68,55 +88,34 @@ public class UpdatedPasswordDialog extends javax.swing.JDialog {
         getContentPane().add(mLabelPasswordBaruTextField, gridBagConstraints);
 
         mActionButton.setText("Ubah");
+        mActionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mActionButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         getContentPane().add(mActionButton, gridBagConstraints);
 
         mErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        mErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(mErrorLabel, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(414, 308));
+        setSize(new java.awt.Dimension(414, 187));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdatedPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdatedPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdatedPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdatedPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdatedPasswordDialog().setVisible(true);
-            }
-        });
-    }
+    private void mActionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionButtonActionPerformed
+        if (mController.submit(mPasswordLamaTextField.getText(), mPasswordBaruTextField.getText(), mLabelPasswordBaruTextField.getText()))
+            dispose();
+    }//GEN-LAST:event_mActionButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton mActionButton;

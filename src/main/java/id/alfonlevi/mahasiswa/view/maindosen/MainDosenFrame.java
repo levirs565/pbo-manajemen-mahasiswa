@@ -5,6 +5,7 @@
 package id.alfonlevi.mahasiswa.view.maindosen;
 
 import id.alfonlevi.mahasiswa.controller.MainDosenController;
+import id.alfonlevi.mahasiswa.view.base.MenuHelper;
 import id.alfonlevi.mahasiswa.view.matakuliahdosen.MataKuliahDosenPanel;
 import id.alfonlevi.mahasiswa.view.matakuliahlist.*;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -72,6 +73,8 @@ public class MainDosenFrame extends javax.swing.JFrame implements MainDosenView 
             mController.setSelectedPeriode(id);
         });
         mPeriodeComboBox.setSelectedIndex(-1);
+
+        MenuHelper.applyMenu(this, true);
     }
 
     @Override

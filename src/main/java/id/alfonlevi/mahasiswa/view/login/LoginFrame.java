@@ -6,6 +6,7 @@ package id.alfonlevi.mahasiswa.view.login;
 
 import id.alfonlevi.mahasiswa.controller.LoginController;
 import id.alfonlevi.mahasiswa.data.model.Akun;
+import id.alfonlevi.mahasiswa.view.base.MenuHelper;
 import id.alfonlevi.mahasiswa.view.main.MainFrame;
 import id.alfonlevi.mahasiswa.view.maindosen.MainDosenFrame;
 import id.alfonlevi.mahasiswa.view.nilaimahasiswa.NilaiMahasiswaFrame;
@@ -27,6 +28,8 @@ public class LoginFrame extends javax.swing.JFrame implements LoginView {
         mController = new LoginController(this);
         
         ((JComponent)getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        MenuHelper.applyMenu(this, false);
     }
 
     @Override

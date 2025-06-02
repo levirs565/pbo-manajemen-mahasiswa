@@ -27,7 +27,7 @@ public class MainDosenController {
             mPeriodeModel.addElement(item);
 
         var akun = RepositoryProvider.get().getDosenRepository().get(Auth.USERNAME);
-        mView.setTitle(String.format("Dosen - %s, (%s)", akun.getNama(), akun.getNip()));
+        mView.setTitle(String.format("Dosen - %s (%s)", akun.getNama(), akun.getNip()));
     }
 
     public void setSelectedPeriode(String id) {

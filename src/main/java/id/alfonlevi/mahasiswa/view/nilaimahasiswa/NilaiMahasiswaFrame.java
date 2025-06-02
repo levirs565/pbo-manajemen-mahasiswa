@@ -6,6 +6,7 @@ package id.alfonlevi.mahasiswa.view.nilaimahasiswa;
 
 import id.alfonlevi.mahasiswa.controller.NilaiMahasiswaController;
 import id.alfonlevi.mahasiswa.data.model.Periode;
+import id.alfonlevi.mahasiswa.view.base.MenuHelper;
 import id.alfonlevi.mahasiswa.view.base.PeriodeListCellRenderer;
 
 import javax.swing.*;
@@ -26,8 +27,10 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
         mPeriodeComboBox.setRenderer(new PeriodeListCellRenderer());
 
         mController = new NilaiMahasiswaController(this);
-        
+
         ((JComponent) getContentPane()).setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        MenuHelper.applyMenu(this, false);
     }
 
     @Override
@@ -103,15 +106,15 @@ public class NilaiMahasiswaFrame extends javax.swing.JFrame implements NilaiMaha
         getContentPane().add(mNamaField, gridBagConstraints);
 
         mTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+                new Object[][]{
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
+                },
+                new String[]{
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }
         ));
         jScrollPane1.setViewportView(mTable);
 
