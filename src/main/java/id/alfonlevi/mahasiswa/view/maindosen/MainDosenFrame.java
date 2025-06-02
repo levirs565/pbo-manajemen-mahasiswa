@@ -112,6 +112,7 @@ public class MainDosenFrame extends javax.swing.JFrame implements MainDosenView 
         mTabPane = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dosen");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         mTabPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);

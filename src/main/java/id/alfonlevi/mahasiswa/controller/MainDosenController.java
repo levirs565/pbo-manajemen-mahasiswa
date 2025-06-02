@@ -3,6 +3,7 @@ package id.alfonlevi.mahasiswa.controller;
 import id.alfonlevi.mahasiswa.data.Auth;
 import id.alfonlevi.mahasiswa.data.RepositoryProvider;
 import id.alfonlevi.mahasiswa.data.model.Periode;
+import id.alfonlevi.mahasiswa.data.repository.AkunRepository;
 import id.alfonlevi.mahasiswa.data.repository.MataKuliahRepository;
 import id.alfonlevi.mahasiswa.data.repository.PeriodeRepository;
 import id.alfonlevi.mahasiswa.view.maindosen.MainDosenView;
@@ -24,6 +25,9 @@ public class MainDosenController {
 
         for (var item : mPeriodeRepository.getAll())
             mPeriodeModel.addElement(item);
+
+        var akun = RepositoryProvider.get().getDosenRepository().get(Auth.USERNAME);
+        mView.setTitle(String.format("Dosen - %s, (%s)", akun.getNama(), akun.getNip()));
     }
 
     public void setSelectedPeriode(String id) {

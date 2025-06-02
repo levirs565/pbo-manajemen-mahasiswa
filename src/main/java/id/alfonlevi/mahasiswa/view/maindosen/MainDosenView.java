@@ -9,4 +9,5 @@ import java.util.List;
 public interface MainDosenView {
     void setPeriodeModel(ComboBoxModel<Periode> model);
     void setData(List<MataKuliah> data);
+    void setTitle(String title);
 }
